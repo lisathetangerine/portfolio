@@ -1,0 +1,211 @@
+body {
+	font-family: Noto Sans, Arial, sans-serif;
+	font-size: 14px;
+	margin: auto;
+}
+
+/* the header doesn't show the border, apart from the bottom one*/
+header {
+	width: 80%;
+	margin: auto; 
+	padding: 0px;
+	border-bottom: 3px solid #000; /* black*/
+}
+
+/* nav is the table menu */
+nav {
+	text-align: center;
+	font-size: 16px;
+	margin: auto;
+	padding: 60px;
+}
+
+nav li {
+	display: inline; 
+	float: left; /*menu li on the same line*/
+	width: 18%;
+	padding: 4px;
+	margin: auto;
+} /*there is no margin cos I dont want space among caselle*/
+
+
+nav li a {
+	display: block;
+	margin: auto;
+	padding: 4px;
+	line-height: 30px;
+	text-decoration: none;
+	text-align: center;
+	color: #000; /* black */
+	font-weight: bold;
+}
+
+nav li a:hover {
+	color: #FFF; /* white */
+	background-color: #A32953;
+	text-decoration: none;
+}
+
+/* main part's width is 60% vs header's one 80% */
+main {
+	width: 50%;
+	margin: auto;
+	text-align: justify;
+}
+
+.social {
+	text-align: right;
+}
+
+#uni, #students, #cardiff {
+	width: 100%;
+}
+
+h1, h2, h3 {
+	text-align: center;
+}
+
+h1 {
+	font-size: 32px;
+}
+
+h2 {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+h3 {
+	font-size: 20px;
+	border-style: solid;
+	border-color: #000; /* black */
+	padding: 4px;
+}
+
+/* the two tables have some mutual characteristics */
+table {
+	width: 70%;
+	height: 160px;
+	margin: auto;
+	text-align: center;
+	color: #21A3F5;
+}
+
+table, td {
+border: 1px solid;	
+}
+
+footer {
+	width: 50%; /* like the main part */
+	height: 50px;
+	margin: auto;
+	padding: 10px;
+	background-color: #000; /* black */
+	color: #FFF; /* white */
+}
+
+/* #logo and #copyright are in the footer, logo on the left, copyright on the right */
+#logo {
+	float: left;
+}
+
+#copyright {
+	float: right;
+	padding: 35px 0 0 0;
+}
+
+/* NB: iframe's description is both for youtube video and google map */
+iframe {
+	display: block;
+	margin: auto; /* video in the centre of the page */
+	width: 440px; 
+	height: 320px;
+	border: 0;
+}
+
+/* the following class corresponds to a few links which open new windows to other websites */
+a {
+	color: #21A3F5;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/* I put margin 0, because the tag figure put in automatic a margin that shrinks the image*/
+figure {
+	margin: 0;
+	text-align: center;
+}
+
+figcaption {
+	padding: 5px 5px 10px 5px;
+}
+
+/* table that contains fees. I have to specify color is black because of the inheritance from the tag table */
+#fees {
+	width: 50%;
+	padding: 4px;
+	background: #FFF398;
+	color: #000; /* black */ 
+	border: 2px solid #000; /* black */
+	border-style: none;
+	border-collapse: collapse; /* no space among the boxes */
+}
+
+/* The table with contact info, and its caption */
+#contactinfo {
+	background: #929799;
+	color: black;
+	border-style: none;
+	border-spacing: 0.5rem; /* in this way the block are not too close each other*/
+}
+
+#contactinfo td {
+	padding: 5px;
+	border-color: #FFF; /* white */
+}
+
+caption {
+	text-transform: uppercase;
+	font-weight: bold;
+	background: black;
+	color: #FFF;
+	padding: 10px;
+}
+
+/*  it's the class for all the element that need to be in the center */
+.center {
+	text-align: center;
+}
+
+/* It's just 1 long query */
+@media (max-width: 980px) {
+	nav {
+		padding: 0;
+	}
+	nav li {
+		width: 100%; /* The menu list becomes horizontal */
+	}
+	.social { 
+		display: none;
+	}
+	header {
+		border: none; /* It looks better withour .social and border */
+	}
+	main {
+		padding: 0 0 0 35px; /* To make the main part proportional to the header. */
+		width: 50%;	
+	}
+	iframe {
+		width: 70%;
+	}
+	footer {
+		background: white;
+		color: black;
+	} 
+	#logo {
+		padding: 0;
+		display: none;
+	}
+}

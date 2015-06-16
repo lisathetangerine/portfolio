@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en"> 
+  <head>
+    <style>
+      html, body {
+        padding: 0px;
+        margin: 0px;
+        background-color:#F5F5F5;
+      }
+
+      h1 {
+        margin: auto;
+        text-align: center;
+        padding: 10px;
+      }
+
+      h2 {
+        font-size: 20px;
+        text-align: center;
+        margin: auto;
+      }
+
+      .axis {
+       font: 10px sans-serif;
+      }
+
+      .axis path,
+      .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+      }
+
+      #left-side {
+        float: left;
+      }
+
+      #right-side {
+        width: 120px;
+        float: right;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-right: 30px;
+        margin-top: 40px;
+      }
+
+      article {
+        width: 70%;
+        margin: auto;
+        text-align: center;
+        background-color: white;
+      }
+
+      a {
+        text-decoration: none;
+        color: blue;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      #chart {                                                          
+        height: 500px;                                                  
+        position: relative;                                             
+        width: 500px;                                                   
+      }                                                                 
+      
+      .legend {
+        font-size: 12px;
+      }
+      
+      rect {
+        stroke-width: 2;
+      }
+
+      #vis4 {                                                          
+        height: 500px;                                                  
+        position: relative;                                             
+        width: 500px;                                                   
+      }        
+
+      table {
+        background-color: white;
+        width: 70%;
+        border-collapse: collapse;
+        margin: auto;
+        text-align: center;
+      }
+
+      table, td, th {
+        border: 1px solid black;
+      }  
+
+      td, th {
+        padding: 10px;
+      }   
+
+      vis {
+        text-align: center;
+        margin: auto;
+      }
+
+      section {
+        clear: both;
+      }
+
+      h3 {
+        width: 80%;
+      }
+
+      .last {
+        text-align: right;
+        width: 90%;
+        font-style: italic;
+        font-size: 14px;
+        padding-bottom: 5px;
+      }
+
+      .uno {
+        background-color: #ffffcc;
+      }
+
+      .due {
+        background-color: #a1dab4;
+      }
+
+      .tre {
+        background-color: #41b6c4;
+      }
+      
+      .quattro {
+        background-color: #2c7fb8;
+      }
+
+    </style> 
+
+    <script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+  </head>
+  
+  <body> 
+    <article>
+    <h1>Cardiff High Schools</h1>
+      <h2>How is your closest High School performing?</h2>
+      <p>The bar graph above presents the High Schools within 2km the Cardiff bus route 1/2.<br>
+      On mouse over, basic information on individual schools will be displayed.</p>
+    <div id="left-side">
+      <div id="vis"></div>
+    </div>
+    <div id="right-side"></div>
+    
+    <section>
+      <p>The visualisation displays the bars in descending order, from the best institution to the poorest one.<br>The criteria taken into consideration for the evaluation of the schools are the following:<br> 
+          <p>Pupils&#39; outcome <br> 
+          Quality of the teaching<br> 
+          Care, support and guidance<br> 
+          Leadership &amp; Management<br><p>       
+
+      Trasparent data are provided in the table below.</p>
+      <p>The assessment goes from 1 to 4: being 1 <em>Unsatisfactory</em>, 2 <em>Adequate</em>, 3 <em>Good</em> and 4 <em>Excellent.</em></p>
+      
+      <div id="table"><table><thead><tr><th>High Schools</th><th>Learners' achieve</th><th>Teaching</th><th>Care, Support and Guidance</th><th>Leadership & Management</th></tr></thead><tr><td>Cantonian High School</td><td class="due">2</td><td class="tre">3</td><td class="quattro">4</td><td class="tre">3</td></tr><tr><td>Corpus Christi R.C High School</td><td class="uno">1</td><td class="uno">1</td><td class="uno">1</td><td class="uno">1</td></tr><tr><td>Glyn Derw High School</td><td class="uno">1</td><td class="due">2</td><td class="due">2</td><td class="due">2</td></tr><tr><td>Whitchurch High School</td><td class="due">2</td><td class="due">2</td><td class="uno">1</td><td class="due">2</td></tr><tr><td>Cardiff High School</td><td class="quattro">4</td><td class="quattro">4</td><td class="quattro">4</td><td class="quattro">4</td></tr><tr><td>St Teilo's C.W High School</td><td class="tre">3</td><td class="tre">3</td><td class="tre">3</td><td class="tre">3</td></tr><tr><td>Ysgol Gyfun Gymraeg Plasmawr</td><td class="uno">1</td><td class="uno">1</td><td class="due">2</td><td class="uno">1</td></tr></table></div>
+
+      <div>
+        <p class="last">Data Source: <a href="http://www.estyn.gov.uk/" target="_blank">Estyn</a><p>
+      </div>
+    </section> 
+    </article>
+
+  </body>
+
+  <script>
+
+(function(){
+var colour_scale = d3.scale.quantile().range(colorbrewer.Blues[9]);
+
+  var margin = {top: 30, right: 20, bottom: 180, left: 40}
+  width = 650 - margin.left - margin.right,
+  height = 500 - margin.top - margin.bottom;
+  
+  var x_scale = d3.scale.ordinal()
+    .rangeBands([margin.left, width-margin.right], .5);
+
+  var y_scale = d3.scale.linear()
+    .range([height, 0]);
+
+  var xAxis = d3.svg.axis()
+    .scale(x_scale) 
+    .orient("bottom")
+
+  var yAxis = d3.svg.axis()
+    .scale(y_scale)
+    .orient("left")
+    .ticks(8);
+
+  var svg = d3.select("#vis").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");   
+
+    d3.json('Highschools.json', function(data) {
+      console.log(data);
+
+      data.sort(function(a, b){
+        if(a.school.Average > b.school.Average) {
+          return -1;
+        }
+        if(a.school.Average < b.school.Average) {
+          return 1;
+          }
+          return 0;
+        });
+
+        console.log(data);
+
+        var labels = data.map(function(d){
+          return d.school.School;
+        });
+
+        console.log(labels);
+
+        x_scale.domain(labels);
+
+        var max = d3.max(data, function(d){ return +d.school.Average });
+
+   //     var min = d3.min(data, function(d){ return +d.Average });
+
+        y_scale.domain([0, max]);
+
+
+        colour_scale.domain([0, max]);
+
+      svg.append("g")
+         .attr("class", "x axis")
+         .attr("transform", "translate(0," + height + ")")
+         .call(xAxis)
+       .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-10")
+        .attr("dy", "-5")
+        .attr("transform", "rotate(-70)" );
+
+      svg.append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(40,0)")
+        .call(yAxis)
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -40)
+        .attr("x", -120)
+        .style("text-anchor", "end")
+        .text("Rate")
+
+
+      var bars = svg.selectAll("rect")
+              .data(data)
+              .enter() //will create rect if they dont exist
+              .append("rect")//for each data
+              .attr("x", function(d) { return x_scale(d.school.School)})
+              .attr("width", x_scale.rangeBand())
+              .attr("y", function(d) { return y_scale(+d.school.Average); })
+              .attr("height", function(d) { return height - y_scale(+d.school.Average); })
+              .style("fill", function(d){ return colour_scale(d.school.Average); })
+
+
+      d3.selectAll("rect")
+          .on("mouseover", function(d){
+            console.log('hover');
+            console.log(d);
+            var text_div = d3.select("#right-side")
+                .attr("height", height)
+                .style("background-color", "#eee");
+            text_div.append("p")
+              .text(d.School)
+              .style("font-weight", "bold");
+
+            text_div.append("p")
+              .text("Address: " + d.school.Address + "," + " " + d.school.City + "," + " " + d.school.Postcode);
+
+            text_div.append("p")
+              .text("Telephone: " + d.school.Telephone);
+
+            text_div.append("p")
+              .text("Headteacher: " + d.school.Headteacher);
+
+            text_div.append("p")
+              .text("Language: " + d.school.Language);
+
+            text_div.append("p")
+              .text("Report Year: " + d.school.Report_year);
+          });
+
+      d3.selectAll("rect")
+          .on("mouseout", function(d){
+            console.log('mouseout');
+            var text_div = d3.select("#right-side")
+                .html('');
+          });
+    });
+}());
+
+   </script>
+
+</html>

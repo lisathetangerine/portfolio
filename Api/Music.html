@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Music is my radar</title>
+		<link rel="stylesheet" href="style.css">
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body>
+		<header>	
+<!-- Nav is the menu bar -->
+		<nav>
+			<img id="logo" src="logo2.jpg" alt="logo" width="200">
+
+			<ul>
+				<li class="red"><a href="#one">Listen to music</a></li>
+				<li class="blue"><a href="#two">Discover gigs</a></li>
+				<li class="green"><a href="#three">Find a venue</a>
+			</ul>
+		</nav>
+		</header>
+<!-- The main part contains an image, a container with three sections -->
+		<main>
+<!-- Cover image that changes. It has a class because images can be the same size -->
+			<img class="cover_image" src="beatles.jpg" alt="cover"> 
+			<h1>Welcome to Music is my radar!</h1>
+            <p id="intro">Three simple steps that will take you on an extraordinary journey:</p>
+            <p id="intro">Listen to an artist.<br>
+            Find out if he is on tour.<br>
+            Interact with the map.</p>
+
+<!-- The container is divived into tre sections: -->
+			<div class="container">
+
+<!-- Section 1: Spotify Api -->
+                <section class="box">
+			   		<h2 class="red" id="one">Listen to music</h2>
+      					<form id="search-spotify">
+            				<label for="search-band">Search Artist:
+         						<input type="text" id="search-band" name="search">
+        				    </label>
+ 				        </form>
+<!-- Section for the output -->
+ 				    <div id="results-spotify">
+ 				    </div>
+				</section>
+                <p class="arrow">&#x2193;<p>
+
+<!-- Section 2: Band In town Api -->
+				<section class="box">
+		   			<h2 class="blue" id="two">Discovers gigs</h2>
+		   				<form id="search-bandintown">
+        				    <label for="search-gig">Search Artist:
+        				        <input type="text" id="search-gig" name="search">
+         					</label>
+                        </form>
+<!-- Section for the output -->
+                    <div id="results-bandintown">
+                    </div> 
+		   		</section>
+                <p class="arrow">&#8595;</p>
+
+<!-- Section 3: map, two parameters required (lat and long) -->
+			    <section class="box">
+				    <h2 class="green" id="three">Find a venue</h2>
+                        <form>
+                            <label for="latitude">Latitude:
+                                <input type="number" id="latitude" name="search">
+                            </label><br><br>
+                            <label for="longitudeDO ">Longitude:
+                                <input type="number" id="longitude">
+                            </label><br><br>
+                            <input type="button" id="search-location" value="search">
+                        </form>
+                </section>
+                <section>
+				    <p id="map"></p>
+			    </section>
+            </div>
+            <footer>
+                <p id="copyright"><small>All the material is copyright &copy; Annalisa Esposito.</small><p>
+            </footer>
+		</main>
+
+<!-- Footer with copyright -->
+
+
+<!--   Java script   -->	
+	
+        <script>
+
+// To change the cover image every few seconds (changing the source):
+
+		    var change_image = function() {
+                var images=["beatles.jpg", "pearljam.jpg", "smiths.jpg"];
+                var img_number = Math.floor(Math.random() * images.length);
+                $(".cover_image").attr("src", images[img_number]);
+            };
+
+            $(document).ready(function(){
+                window.setInterval(change_image, 3000);
+            });
+
+
+// SPOTIFY API (search artist)
+
+// To print the results on the webpage:
+
+            var output_spotify_artist = function(artist_data) {
+                var html_string = "<div><h3><a href='" + artist_data.external_urls.spotify + "' target=_blank'>" + artist_data.name + "</a></h3>" + "popularity: " + artist_data.popularity + "<br>" + "genre: " + artist_data.genres[0] + "</div>";
+                $('#results-spotify').append(html_string);
+            };
+
+// To request and get data in Java Script Console:
+
+            var search_artist = function(band_name) {
+                $.ajax({
+                    url: "https://api.spotify.com/v1/search",
+                    data: {
+                        q: band_name,
+                        type: "artist"
+                    },
+                   success: function(response) {
+                        console.log(response);
+                        $('#results-spotify').html(""); // To clear the last search
+                        var artists = response.artists.items;
+                        for(var i = 0; i < artists.length; i++) {
+                            output_spotify_artist(artists[i]);
+                        }
+                    },
+                    error: function(xhr, status, error){
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            };
+
+// When the document is ready, this function works:
+
+            $(document).ready(function(){
+                $('#search-spotify').on("submit", function(e){ // To use "Enter" to search
+                    e.preventDefault();
+                    var input = $('#search-band').val();
+                    console.log(input);
+                    search_artist(input);
+                });
+            });
+
+
+// BAND IN TOWN API (search gig by artist)
+
+// To print the results on the webpage:
+
+            var output_bandintown_artist = function(artist_ticket) {
+                var html_string = "<div><h1>" + artist_ticket.formatted_location + "</h1>" + artist_ticket.title + "<br>" + artist_ticket.formatted_datetime + "<br>" + "(" + artist_ticket.ticket_status + ")" + "<p>" + "Latitude: " + artist_ticket.venue.latitude + ". " + "Longitude: " + artist_ticket.venue.longitude + "</p></div>";
+                $('#results-bandintown').append(html_string);
+            };
+
+// To request and get data in Java Script Console:
+
+            var search_ticket = function(band_name) {
+                $.ajax({
+                    url: "https://api.bandsintown.com/artists/" + band_name + "/events.json",
+                    data: {
+                        api_version: "2.0",
+                        app_id: "Musicismyradar"
+                    },
+                    dataType: "jsonp",
+                    success: function(response) {
+                        console.log(response);
+                        var events = response;
+                        if (events.length > 0) {
+                            $('#results-bandintown').html(""); // To clear the last search
+                            for (i = 0; i < events.length; i++) {
+                            output_bandintown_artist(events[i]);
+                            }
+                        } else { // If there are no result, print out "No results"
+                            $('#results-bandintown').html("<div><h4>No results</h4></div>");
+                        }    
+                    },
+                    error: function(xhr, status, error){
+                        console.log(status);
+                        console.log(error);
+                    }
+                })
+            };
+
+// When the document is ready, this function works:
+
+            $(document).ready(function(){
+                $('#search-bandintown').on("submit", function(e){ // To use "Enter" to search
+                    e.preventDefault();
+                    var input = $('#search-gig').val();
+                    console.log(input);
+                    search_ticket(input);
+                });
+            });
+
+
+// GOOGLE MAPS API
+       
+// To keep a basic map at the beginning : 
+
+            var myCenter = new google.maps.LatLng(51.48333, -3.18333); // Cardiff
+            var map = null, marker = null; 
+        
+            function initialize(){
+                var mapProp = {
+                    center :myCenter,
+                    zoom: 10,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(document.getElementById('map'),mapProp);
+                marker = new google.maps.Marker({
+                    position: myCenter,
+                });
+                marker.setMap(map);
+            };
+
+// When the document is ready, this function works:
+
+            $(document).ready(function(){
+                $('#search-location').on("click", function(){
+                    var lat = $('#latitude').val()
+                    var lng = $('#longitude').val();
+                    console.log(lat);
+                    console.log(lng);
+                    myCenter = new google.maps.LatLng(lat,lng);
+                    map.setCenter(myCenter);
+                    marker.setPosition(myCenter);
+                });
+            });
+
+// Dom Listener:
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+
+    	</script>
+	</body>
+</html>

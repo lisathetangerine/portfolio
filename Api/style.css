@@ -1,0 +1,175 @@
+body {
+	margin: 0;
+	width: 100%;
+	font-family: Noto Sans, Arial, sans-serif;
+	font-size: 14px;
+	background-color: #F5F5F5;
+}
+
+header {
+	width: 70%;
+	margin: auto;
+	background: #000; /* Black */
+}
+
+#logo {
+	float: left; /* Logo and Nav menu on the same line */
+}
+
+/* Nav is the table menu. It contains logo and 3 boxes */
+nav {
+	text-align: right;
+	padding: 1%;
+}
+
+nav li {
+	display: inline; /* Menu li on the same line */
+	list-style: none;
+	padding: 1%;
+	margin: 1%; /* Space among boxes */
+}
+
+nav li a {
+	color: #FFF; /* White */
+	text-decoration: none;
+}
+
+nav li a:hover {
+	text-decoration: none;
+}
+
+/* Three boxes/classes that correspond to different colours */
+.red {
+	background: #FF5050;
+	margin-top: 0;
+}
+
+.green {
+	background: #00CC66;
+	margin-top: 0;
+}
+
+.blue {
+	background: #33CCFF;
+	margin-top: 0;
+}
+
+main {
+	width: 70%;
+	margin: auto;
+	text-align: justify;
+	background-color: white;
+}
+
+/* All the images used as cover image have same size */
+.cover_image {
+	width: 100%;
+	height: 2%;
+}
+
+h1, h2 {
+	text-align: center;
+}
+
+h1 {
+	font-size: 30px;
+	background: black;
+	color: white;
+	margin-top: 0;
+	padding: 10px;
+	border-radius: 20%;
+}
+
+h2 {
+	color: #FFF; /* White */
+	padding: 1.5%;
+	font-size: 24px;
+}
+
+#intro {
+	text-align: center;
+	font-size: 18px;
+}
+
+.box { 
+	border: solid 2px;
+	margin: auto;
+	width: 300px;
+	padding: 2px;
+	text-align: center; 
+	padding-bottom: 20px;
+}
+
+#map {
+	width: 300px;
+	height: 250px;
+}
+
+footer {/* Like the main part */
+	height: 0.5%;
+	margin: auto;
+	padding: 0.5%;
+	background-color: #000; /* Black */
+	color: #FFF; /* White */
+	font-size: 16px;
+}
+
+#copyright {
+	text-align: center;
+}
+
+input[type=button] {
+	width: 130px;
+	font-size: 12px;
+	background-color: yellow;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+input[type=text], input[type=number] {
+	background-color:#F8F8F8;
+}
+
+.arrow {
+    font-size: 24px;
+    margin: 10px;
+    text-align: center;
+      }
+
+/* Queries */
+
+/* Break point 1 */
+@media (max-width: 900px) {
+	h1 {
+		font-size: 24px;
+	}
+	h2 {
+		font-size: 18px;
+	}
+	body {
+		font-size: 12px;
+	}
+	#intro {
+		font-size: 14px;
+	}
+}
+
+/* Break point 2 */
+@media (max-width: 800px){
+	#logo {
+		display: none;
+	}
+}
+
+/* Break point 3 */
+@media (max-width: 500px){
+	header {
+		width: 80%;
+	}
+	main {
+		width: 80%;
+	}
+		footer {
+		width: 80%;
+	}
+}

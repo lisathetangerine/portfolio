@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Greenie Wales</title>
+    <style>
+
+      body {
+        margin: 0;
+        font-size: 12px;
+        font-family: Noto Sans, Arial, sans-serif;
+        width: 100%;
+        background-color: #F5F5F5;
+      }
+
+      main {
+        background-color: white;
+        width: 70%;
+        text-align: center;
+        margin: auto;
+      }
+
+      .justify {
+        font-size: 16px;
+        width: 80%;
+        padding-top: 20px;
+        margin: auto;
+        text-align: justify;
+        font-weight: normal;
+        line-height: 140%;
+      }
+
+      h1 {
+        padding-top:10px;
+        margin-top: 0;
+        font-size: 30px;
+        color: black;
+      }
+
+      .title2 {
+        margin: 0;
+      }
+
+      h2 {
+        font-size: 18px;
+        margin-top: 35px;
+        margin-bottom: 10px;
+      }
+
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+
+      .bar {
+        fill: steelblue;
+      }
+
+      .line.line {
+        fill: none;
+        stroke: deeppink;
+        stroke-width: 1.5px;
+      }
+
+      .grid .tick {
+        stroke: lightgrey;
+        opacity: 0.7;
+      }
+
+      .grid path {
+        stroke-width: 0;
+      }
+
+/* NOTE: it's the tooltip of the line graph, the second tootip you meet in the vis*/
+      div.tooltip {   
+        position: absolute;           
+        text-align: center;           
+        width: 42px;                  
+        height: 20px;                 
+        padding: 8px;             
+        font: 14px sans-serif;        
+        background: lightsteelblue;   
+        border: 0px;
+        border-radius: 8px;           
+        pointer-events: none;         
+      }
+
+      .center {
+        width: 70%;
+        text-align: center;
+        margin: auto;
+        font-size: 16px;
+        line-height: 140%;
+      }
+
+      #underlined {
+        text-decoration: underline;
+      }
+  
+      #quote {
+        width: 60%;
+        margin: auto;
+        text-align: center;
+        font-size: 18px;
+        background-color: #FFFACD;
+        padding: 8px;
+        border-radius: 25px;
+        border: 2px solid #8AC007;
+        line-height: 140%;
+      }
+
+      a {
+        text-decoration: none;
+        color: green;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }                                           
+       
+      .tooltip2 {        
+        position: absolute;                                                  
+        background: #eee;                                               
+        box-shadow: 0 0 5px #999999;                                    
+        color: #333;                                                    
+        display: none;                                                  
+        font-size: 12px;                                                
+        left: 570px;                                                    
+        padding: 10px;                                                                                                                                   
+        top: 760px;                                                      
+        width: 120px;                                                    
+        z-index: 10;                                                    
+      }     
+
+      rect {
+        stroke-width: 2;
+      }
+
+      .arrow {
+        font-weight: bold;
+        font-size: 24px;
+        margin: 8px 0 0 0;
+      }
+
+      .right-side {
+        text-align: right;
+        width: 90%;
+        font-style: italic;
+        font-size: 12px;
+      }
+
+      .last {
+        text-align: right;
+        width: 90%;
+        font-style: italic;
+        font-size: 12px;
+        padding-bottom: 10px;
+      }
+
+      #vis1 {
+        margin: 0;
+      }
+
+    </style>
+
+    <script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+  
+  </head>
+  
+  <body>
+  
+  <main>
+    <h1>Greenie Wales</h1>
+    <img src="recycling.png" height="100" width="100">
+
+    <article> <!-- Intro -->
+      <p class="center" id="underlined">Wales is surging ahead of the rest of the UK on recycling rates.</p>
+      <p class="center">The country, in fact, has implemented an ambitious <a href="http://gov.wales/topics/environmentcountryside/epq/waste_recycling/publication/towardszero/?lang=en" target="_blank">Towards Zero Waste strategy</a> that aims to recycle or re-use all waste by 2050.</p><br>
+      <p id="quote"><em>"I am delighted that the people of Wales are managing their waste in a sustainable and environmentally friendly manner. I congratulate local authorities across Wales for their important role in achieving this impressive result." (John Griffiths, Welsh environment minister)</em></p><br>
+    </article>
+    
+    <p class="arrow">&#x2193;<p>
+
+    <div id="vis1">
+      <h1 id="title2">Some data to clarify...</h1>
+      <p class="justify">The Total Waste is measured in municipalities, which can be broken down into authority types: Rural, Urban and Valley, each one with its own production of rubbish. Unexpectedly, Rural authorities have the higher percentage of Waste, followed by Urban and Valley ones. Mouse over the donut pie chart to get further information related to Summer 2014. </p>
+      <h2>Municipal waste arising percetange (Jul-Sep 14)</h2>
+    </div>
+
+    <div>
+      <p class="right-side">Data source: <a href="https://statswales.wales.gov.uk/Catalogue/Environment-and-Countryside/Waste-Management/Local-Authority-Municipal-Waste/Quarterly/municipalwastearisings-by-localauthority-quarter" target="_blank">StatsWales</a><p>
+    </div>
+
+    <div id="vis2">
+      <p class="justify">Wales' strategy to cut the refuse down is going very well. Focusing on the Household aspect, over about a decade, the figures for Waste dropped by almost 170,000 tonnes, whereas the Recycling Rate almost tripled. The following double-bar graph shows the average shift from 2003 to 2011.</p>
+      <h2>Household waste and recycling by year</h2>
+
+    </div>      
+    <p class="right-side">Data source: <a href="https://statswales.wales.gov.uk/Catalogue/Environment-and-Countryside/Waste-Management/Local-Authority-Municipal-Waste/Annual/Pre-April%202012-definition/TonnesOfWasteGenerated-by-Type-Year" target="_blank">StatsWales</a> and <a href="https://statswales.wales.gov.uk/Catalogue/Environment-and-Countryside/Waste-Management/Local-Authority-Municipal-Waste/Annual/Pre-April%202012-definition/TonnesOfWasteRecycledComposted-by-LocalAuthority-Source">StatsWales</a><p>
+    </div>
+
+    <div id="vis3"> 
+      <p class="justify">The EC Directive on Packaging and Packaging Waste seeks to reduce the impact of packaging on the environment by introducing recovery and recycling targets for packaging waste, and by encouraging minimisation and reuse of packaging. These days, it is possible to recycle most forms of packaging, even where composite materials are used.<br>
+      The following visualisation displays the trend of the most common packaging materials recycled from 2006 to 2011. Glass and steel seem to have an opposite pattern, which makes think of a price fluctuation. Wood has a downward trend; paper, aluminium and plastic values do not surpass 20 kilotonnes.</p>
+      <h2>Packaging waste recycled by year</p>
+    </div>
+
+    <div>
+      <p class="right-side">Data source: <a href="https://statswales.wales.gov.uk/Catalogue/Environment-and-Countryside/State-of-the-Environment/Sustainable-Use-of-Resources/PackagingWasteRecoveredOrRecycled-by-Year" target="_blank">StatsWales</a><p>
+    </div>
+  
+    <div id="vis4">
+      <p class="justify">Nowadays, a very large number of materials can be recycled and reused, including electronic equipment, paint, oil and batteries. In 2012, Organic Waste was the most recycled material, with around 280 kilotonnes, followed by paper, rubble and glass. Wood, plastic and metal maintain their values between 20 and 40 kilotonnes.</p>
+      <h2>Recycling by material in 2012</h2>
+    </div>
+
+    <div>
+      <p class="right-side">*WEEE = Waste Electrical and Electronic Equipment<br>
+      **IBA = Incinerator Bottom Ash<p>
+      <p class="right-side">Data source: <a href="https://statswales.wales.gov.uk/Catalogue/Environment-and-Countryside/Waste-Management/Recycling-Destinations/Recycling-Tonnages-by-Material-LocalAuthority" target="_blank">StatsWales</a> <p>
+    </div>
+
+    <div id="vis5">
+      <p class="justify">Last but not least, Wales aims at reducing CO2 emission and that's why more and more <i>clean energy</i> has been generated. Renewable sources include wind, hydro, landfill gas and other biofuels and wastes.<br> 
+      As in the case of Houselhold Recycling, the percentage of electricity produced by renewable sources tripled between 2002 and 2012. Mouse over the line corresponding to the year to know the exact percentage.
+      </p>
+      <h2>Electricity generated from Renewable Sources</h2>
+    </div>
+
+    <div>
+      <p class="last">Data Source: <a href="https://statswales.wales.gov.uk/Catalogue/Sustainable-Development/Sustainable-Development-Indicators/Electricity-generated-reneweable-resources" target="_blank">Statswale</a><p>
+    </div>
+  </main>
+
+    <script src="vis.js"></script>
+
+  </body>
+</html>
+
+
