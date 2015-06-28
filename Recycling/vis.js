@@ -8,7 +8,7 @@
     var width = 400;
     var height = 400;
     var radius = Math.min(width, height) / 2;
-    var donutWidth = 85;
+    var donutWidth = 75;
     var legendRectSize = 18;
     var legendSpacing = 4;
 
@@ -240,7 +240,7 @@
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  d3.csv("packaging.csv", function(error, data) {
+  d3.csv("Packaging.csv", function(error, data) {
     color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 
     data.forEach(function(d) {
