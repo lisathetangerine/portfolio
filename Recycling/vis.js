@@ -109,8 +109,8 @@
 (function(){
 
   var margin = {top: 10, right: 20, bottom: 30, left: 60},
-    width = 800 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 700 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
 
   var x0 = d3.scale.ordinal()
     .rangeRoundBands([0, width], .1);
@@ -207,8 +207,8 @@
 (function(){
 
   var margin = {top: 0, right: 80, bottom: 30, left: 70},
-    width = 800 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 700 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
   
   var parseDate = d3.time.format("%Y").parse;
 
@@ -302,8 +302,8 @@
 (function(){
 
   var margin = {top: 0, right: 20, bottom: 100, left: 40},
-  width = 800 - margin.left - margin.right,
-  height = 500 - margin.top - margin.bottom;
+  width = 700 - margin.left - margin.right,
+  height = 450 - margin.top - margin.bottom;
 
   var colour_scale = d3.scale.quantile().range(colorbrewer.RdGy[7]);
   
@@ -415,8 +415,8 @@
 (function(){
 
   var margin = {top: 10, right: 20, bottom: 30, left: 50},
-    width = 800 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 700 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
 
   var parseDate = d3.time.format("%Y").parse;
 
