@@ -42,7 +42,8 @@
       }
 
       #right{
-        background-color: #e5e5e5;      
+        background-color: #e5e5e5; 
+        border-radius: 10px;     
       }
 
       h1 {
@@ -66,7 +67,7 @@
       img {
         border: solid 0.1em black;
         padding: 2px;
-        height: 150px;
+        height: 160px;
         border-radius: 5%;
       }
 
@@ -303,20 +304,21 @@
 
             <div id="left" class="col-md-8">
 
-              <div class="portfolio-item">
+              <div class="portfolio-item-uno">
                 <a href="Recycling/try.html"><h3 class="col-md-12" style="padding:0;">Recycling in Wales</h3></a>
                 <a href="Recycling/try.html"><img src="images/recycling.png" class="col-md-4 portfolio-item-img"></a>
                 <p class="col-md-8 portfolio-item-content">Being very concerned about Recycling and Sustainability issues, I created a data visualisation which gives a bit of a history of Wales' journey to get "green".<br>
                   My intention was not only to show enthralling data, but also to create an insightful story with a clear logical thread.<br>
                 For the visualisations, I enterily rely on using the Java Script library D3, while the leading data source was StatWales.</p>
               </div>
+              
 
               <div class="portfolio-item">
                 <a href="Education/Highschool.html"><h3 class="col-md-12" style="padding:0;">Cardiff High Schools</h3></a>
                 <a href="Education/Highschool.html"><img src="images/bar.png" class="col-md-4 portfolio-item-img"></a>
                 <p class="col-md-8 portfolio-item-content">In this visualisations, I took into exam High schools within 2km to the Cardiff bus route 1/2 for a Digital Investigation project. This work involved researching a list of all the schools in the city from a reliable source, geo-locating them and finding the ones I could attach to the 1/2 bus route map using Python. After that, I researched and downloaded each individual schools report from Estyn.com and I studied the parameters to use to carry on an evaluation of the schools. I eventually chose: Pupils’ outcome, Quality of the teaching, Care, support and guidance, Leadership and Management.
                 A problem I had to face was that old reports had a ranking 1-4, while the new ones 1-5; I overcame this issue creating a new ranking that could include both.
-                I also had to look up at every single report and manually collect the figures I needed, since all the documents were in a pdf format. This took me 3-4 hours of work.
+                I also had to look up at every single report and manually collect the figures I needed, since all the documents were in a pdf format.
                 To visualise schools’ performance, I had to calculate the average of the 4 criteria. I then used d3 to create the bar graph and I sorted it by descending order. I also provided a tooltip that allows the user to get general information about the school as address, telephone number, head teacher, language and report year. 
                 In the end, I wrote an introductive paragraph to give a sort of background to the visualisation and I inserted a table – created with python since there were numerous data – to make my analysis clear and transparent.<br>
                 I did a similar work for the Primary Schools.
@@ -326,19 +328,19 @@
               <div class="portfolio-item">
                 <a href="Election/north.html"><h3 class="col-md-12" style="padding:0;">Election Cardiff North</h3></a>
                 <a href="Election/north.html"><img src="images/election.png" class="col-md-4 portfolio-item-img"></a>
-                <p class="col-md-8 portfolio-item-content">I searched and put together information about every single candidate in Cardiff North area: who they are, what they did so far. I also created three donut pie charts to show past results, these visualisations get smaller and smaller going back in time for a scenic effect. I used a tooltip and a legend inside the chart (which saves space on the page) to provide readers with further information such as percentage, candidates’ names and respectively party.</p>
+                <p class="col-md-8 portfolio-item-content">I searched and put together information about every single candidate in Cardiff North area: who they are, what they have done so far. I also created three donut pie charts to show past results, these visualisations get smaller and smaller going back in time for a scenic effect. I used a tooltip and a legend inside the chart (which saves space on the page) to provide readers with further information such as percentage, candidates’ names and respectively party.</p>
               </div>
 
               <div class="portfolio-item">
                 <a href="Api/Music.html"><h3 class="col-md-12" style="padding:0;">Music is my Radar (APIs)</h3></a>
                 <a href="Api/Music.html"><img src="images/music.png" class="col-md-4 portfolio-item-img"></a>
-                <p class="col-md-8 portfolio-item-content">This was my first attempt to use an API. Being a music lover, I decided to use three different APIs for this project which are Spotify, Band in Town and Google Maps. My intend was to create a sort of voyage of discovery of new music and potential gigs, for a possible music lover user like me. Everything starts by searching for an artists and the research can take you straight to interact with a map and looking for a particular venue! And if you don't believe it works, try to write a word like Nirvana!</p>
+                <p class="col-md-8 portfolio-item-content">This was my first attempt to use an API. Being a music lover, I decided to use three different APIs for this project which are Spotify, Band in Town and Google Maps. My intend was to create a sort of voyage of discovery of new music and potential gigs, for a possible music lover user like me. Everything starts by searching for an artist and the research can take you straight to interact with a map and looking for a particular venue. And if you don't believe it works, try yourself, write a word like Nirvana!</p>
               </div>
 
               <div class="portfolio-item">
                 <a href="First/Webpage.html"><h3 class="col-md-12" style="padding:0;">My first website!</h3></a>
                 <a href="First/Webpage.html"><img src="images/web.png" class="col-md-4 portfolio-item-img"></a>
-                <p class="col-md-8 portfolio-item-content">After only a month coding, back in November, following the so-called learning by doing method, I had to created my first website. </p>
+                <p class="col-md-8 portfolio-item-content">Back in November, after only a month coding, we were asked to create our first website. The webpage is very simple, created just using html and css. Although it does not have elaborated features on dispay, I have decided it deserves a spot here being my first try with coding. </p>
               </div>
             </div>
 
@@ -351,9 +353,9 @@
 
               <p class="about">All my life has been filled with written words. During my university studies in Pescara, I collaborated with Ozio Magazine and Music Zoom. I came second to a local contest “Festival delle Letterature dell’Adriatico” with this <a href="http://www.festivaldelleletterature.com/racconti2012.php?idracconto=179&pag=20">piece</a>.<p>
     
-              <p class="about">I graduated in Italy in “Lettere Moderne” at G. D’Annunzio University with a score of 100/100 cum laude. My thesis was about the fantastic work of the modern –still alive- Italian writer: Aldo Nove.</p>
+              <p class="about">I graduated in Italy in “Lettere Moderne” at G. D’Annunzio University with a score of 100/100 cum laude. My thesis was about the fantastic work of the still-alive Italian writer and poet: Aldo Nove.</p>
 
-              <p class="about">After that, I took a year off in which I travelled across UK, learning English, exploring, working, teaching Italian.</p>
+              <p class="about">After that, I took a year off in which I travelled across UK, learning English, exploring, working and teaching Italian.</p>
 
               <p class="about">Looking for new possibilities, and aware of the fact that journalists need to be in step with the times, I started this Msc in UK with the hope of acquiring new relevant skills.</p>
 
