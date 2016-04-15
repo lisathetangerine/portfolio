@@ -1,0 +1,426 @@
+/* Menu style */
+#menu li {
+	display:inline-block;
+	margin: 10px;
+	color: #000;
+	background:#fff;
+	background: rgba(255,255,255, 0.5);
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+#menu li.active {
+	background:#666;
+	background: rgba(0,0,0, 0.5);
+	color: #fff;
+}
+
+#menu li a {
+	text-decoration:none;
+	color: #000;
+}
+
+#menu li.active a:hover {
+	color: #000;
+}
+
+#menu li:hover {
+	background: rgba(255,255,255, 0.8);
+}
+
+#menu li a,
+#menu li.active a {
+	padding: 9px 18px;
+	display:block;
+}
+
+#menu li.active a {
+	color: #fff;
+}
+
+#menu {
+	position:fixed;
+	top:0;
+	left:0;
+	height: 40px;
+	z-index: 70;
+	width: 100%;
+	padding: 0;
+	margin:0;
+}
+
+/* Main style */
+body {
+	font-family: "BentonSans";
+	color: black;
+}
+
+.section {
+	text-align:center;
+}
+
+.page {
+	width: 90%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+p {
+	line-height: 1.5;
+	text-align: justify;
+	font-size: 18px;
+}
+
+.quote {
+	font-style: italic;
+	font-size: 17px;
+}
+
+.center {
+	text-align: center;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+a {
+	text-decoration: none;
+	font-weight: lighter;
+	color: rgba(0,0,0,0.5); /*rgba for opacity*/
+}
+
+a:hover {
+	text-decoration: underline;
+	color: black;
+}
+
+/* Used for the "Data source" section*/
+.right-side {
+ 	text-align: right;
+ 	width: 90%;
+	font-style: italic;
+	font-size: 12px;
+}
+
+/* Vertical align
+	.intro {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}*/
+	
+img {
+	border-radius: 25px;
+}
+
+/* h1 - h6*/
+
+h1 {
+	font-size: 20px;
+}
+
+h1#title{
+	font-size: 90px;
+	font-weight: normal;
+	margin: 0;;
+	color:rgba(0,0,0,0.8)
+}
+
+h2#subtitle{
+	margin-top: 0px; 
+	margin-bottom: 0px;
+	font-size: 45px;
+	font-weight: normal;
+	color:rgba(0,0,0,0.8)
+}
+
+/* Title/description of visualisations*/
+h4 {
+	font-weight: bold;
+	margin: 15px;
+}
+
+/* Introduction of the articles */
+h3 {
+	margin:20px;
+	font-size: 28px;
+	font-weight: normal;
+	text-align: center;
+}
+
+/* Page 1: Intro */
+#intro-left {
+	width: 45%;
+	float: left;
+}
+
+#intro-right {
+	width: 45%;
+	float: right;
+	padding-right: 55px;
+}
+
+/* Dot menu */
+.fp-slidesNav.bottom{
+	bottom: 25px;
+}
+
+/* Page 2: Where? - Map */
+
+#map {
+	width: 55%;
+	height: 100%;
+	float:right;
+	padding-right: 50px;
+	margin-top: 10px;
+}
+
+/* Page 3: When? and description uses .description3 */
+
+#line-graph {
+	width: 60%;
+	height: 500px;
+	float: right;
+	margin-top: 10px;
+}
+
+/* Page 1, 2, 3 */ 
+
+.description {
+  	margin-top: 30px;
+	float: left;
+	width: 40%;
+	height: 100%;
+	text-align: justify;
+}
+
+/* Page 4: What material? */
+ul#fly-tippers {
+	text-align: left;
+}
+
+#bar-graph {
+	width: 60%;
+	height: 500px;
+	float: right;
+	margin-top: 20px;
+}
+
+/* Page 5: How Much? */
+#green {
+	background-color: #00cc99;
+	border-radius: 25px;
+	padding: 10px;
+	color: #f2f2f2;
+	font-weight: lighter;
+}
+
+#scat {
+	margin-top: 20px;
+	float: right;
+	width: 60%;
+}
+ 
+/* Page 6: How many*/
+#description6 {
+	margin-top: 10px;
+	float:left;
+	width: 45%;
+}
+
+.right-div {
+	width: 55%;
+	float: right;
+}
+
+#novanta {
+	width: 90%;
+	text-align: center;
+	margin: auto;
+}
+
+.width {
+	width: 90%;
+	padding-left: 3.8%;
+}
+
+/* Sentences with difference size, in Vis 5*/
+/*p.small{
+	font-size: 16px;
+	text-align: center;
+}
+
+p.medium{
+	font-size: 20px;
+	text-align: center;
+}
+
+p.big{
+	font-size: 22px;
+	text-align: center;
+}
+
+p.huge{
+	font-size: 24px;
+	text-align: center;
+}*/
+
+/* Vis 1: Map */  
+.area {
+	stroke: grey;
+}
+
+.boundary {
+	fill: none;
+	stroke: grey;
+}
+
+li.key {
+	border-top-width: 15px;
+	border-top-style: solid;
+	font-size: .75em;
+	width: 10%;
+	padding-left: 0;
+	padding-right: 0; 
+	display: inline-block;
+}
+
+#legend {
+	width: 90%;
+}
+
+.hidden { 
+	display: none; 
+}
+
+div.tooltip {
+	color: #222; 
+	background: #fff; 
+	padding: .5em; 
+	text-shadow: #f5f5f5 0 1px 0;
+	border-radius: 2px; 
+	box-shadow: 0px 0px 2px 0px #a6a6a6; 
+	opacity: 0.9; 
+	position: absolute;
+}
+
+/* Vis 3 and 4: Bar graph and scatterplot*/ 
+.axis path, .axis line {
+	fill: none;            
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.axis text {
+	font-family: sans-serif;
+	font-size: 11px;
+}
+		
+.bar:hover {
+	fill: orangered;
+}	
+
+/* Bar graph tooltip*/
+.d3-tip {
+	line-height: 1;
+	padding: 12px;
+	background: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	border-radius: 2px;
+}
+
+/* To create a small triangle extender for the tooltip */
+.d3-tip:after {
+	box-sizing: border-box;
+	display: inline;
+	font-size: 10px;
+	width: 100%;
+	line-height: 1;
+	color: rgba(0, 0, 0, 0.8);
+	content: "\25BC"; /* it makes the triangle*/
+	position: absolute;
+	text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+	margin: -1px 0 0 0;
+	top: 100%;
+	left: 0;
+}
+
+form {
+	margin: auto;
+	text-align: center;
+}
+
+/* Scatterplot */
+.dot {
+    stroke: #000;
+}
+
+.tooltip2 {
+    position: absolute;
+    width: 200px;
+    height: 28px;
+    pointer-events: none;
+    font-size: 12px;
+    text-align: left;
+}
+
+/* Bar graph and scatterplot*/ 
+.axis path, .axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.axis text {
+	font-family: sans-serif;
+	font-size: 11px;
+}
+
+.line {
+	fill: none;            
+	stroke-width: 1.5px;
+}
+
+.grid .tick {
+	stroke: lightgrey;
+	opacity: 0.7;
+}
+
+.grid path {
+	stroke-width: 0;
+}
+
+div.tooltip {   
+	position: absolute;           
+	text-align: center;           
+	width: 130px;                  
+	height: 46px;                 
+	padding: 6px;             
+	font: 14px sans-serif;        
+	background: lightsteelblue;   
+	border: 0px;
+	border-radius: 8px;           
+	pointer-events: none;         
+}
+
+/* Vis: Pie chart*/
+path {
+      stroke: white;                               
+      stroke-width: 1;                                 
+    }
+
+#littlemen {
+	text-align: left;
+}
+
+.grey {
+	border-radius: 25px;
+	border: solid 2px black;
+	padding: 10px;
+	font-weight: lighter;
+}

@@ -101,6 +101,8 @@ h2 {
 }
 
 .mappa {
+	padding-top: 20px;
+	padding-bottom: 20px;
 	width: 100%;
 }
 
@@ -112,7 +114,7 @@ h2 {
 }
 
 footer {/* Like the main part */
-	height: 0.5%;
+	height: 50px;
 	margin: auto;
 	padding: 0.5%;
 	background-color: #000; /* Black */

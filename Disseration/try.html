@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Fly-tipping</title>
+		<link rel="stylesheet" href="css/maincss.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery.fullPage.css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css" rel="stylesheet" data-semver="3.0.1" data-require="normalize@*" />
+		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.js"></script>
+	    <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.js"></script>
+	   	<script src="http://d3js.org/queue.v1.min.js"></script>
+	   	<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+
+		<script src="js/colorbrewer.js"></script>
+		<script type="text/javascript" src="js/jquery.fullPage.js"></script>
+	</head>
+
+	<body>
+
+		<div id="fullpage">
+			<!-- Page 1: Intro -->
+			<div class="section" id="section0">
+				<div class="page">
+					<h1 id="title">Fly-Tipping</h1>
+					<h2 id="subtitle">Still a problem in Wales?</h2>
+					<article id="intro-left">
+						<h3>Fly-tipping is the common term used to describe waste illegally deposited on land. </h3>
+						<img src="imgs/cow.jpg" alt="garbage" width="500" height="320">
+						<p class="right-side">Copiright @ Buckinghamshire Enforcement team</p>
+					</article>
+					<article id="intro-right">
+						<p>Despite the good progress made by local authorities, 32,000 were the incidents recorded in Wales in 2014 - 2015. Moreover, <a href="statswales.wales.gov.uk/Catalogue/Environment-and-Countryside/Fly-tipping">Fly-capture</a> only records incidents that occur on public land, therefore the true scale of fly-tipping is likely to be bigger.</p>
+						<p>Fly-tipping is a crime. Its offence is set out in the <a href="http://www.legislation.gov.uk/ukpga/1990/43/contents">Environmental Protection Act 1990</a>. Being the punishment of offenders not always a deterrent to commit the offence, new guidelines on sentencing for environmental offences were issued in 2014. The intent is to make committing an offense more expensive than to take the appropriate precautions.</p>
+						<p>Fines need to reflect the true cost of fly-tipping on society, and they go until a maximum of £50,000 and/or 12 months imprisonment.</p>
+						<p>Fly-tipping is not confined to geographical boundaries, is more than a national problems, and this is why Wales, Scotland and England work together to tackle the problem.</p>
+					</article>
+			 	</div>
+			</div>
+
+		<!-- Page 2: Where -->
+		<div class="section" id="section1">
+			<div class="page">
+		   		<article class="description">
+		    		<h3>The highest number of fly-tipping incidents occurs in South Wales.</h3>
+		    		<p>Ryondda Cyhon Taff leads the way, followed respectively by Swansea, Cardiff and Caephilly, which is not surprising considering they contain high populated towns.</p> 
+		    		<p>However, if we think there is a merely correlation between the numbers of accidents and the population density, we are wrong. In fact, data show high figures for Northern local authorities such as Isle of Anglesey and Denbighsire, which ranks low<a href=https://en.wikipedia.org/wiki/List_of_Welsh_principal_areas_by_population> on the density table.</a></p>
+		    		<p>Furthermore, looking at the map, what strikes the most are the figures for localities like Wrexham, Monmouthshire and Ceredigion. In fact, summing together their values, they don't even account for 0,1% of the flytipping rates in Wales.</p>
+		    		<p>We can conclude that Fly-tipping varies across Wales, and depends in part by the resources invested by local authorities. A formula to locate fly-tipping is: "more waste, less distance.It's all about how much waste there is, that could be dumped, and how far you are from that. </p>
+	    		</article>
+	    		<!-- Visualisation -->
+	    		<div id="map">
+					<h2>Where?</h2>
+					<h4>Recorded fly-tipping incidents by local authority in 2014-2015</h4>
+					<p class="right-side">Data source: <a href="" target="_blank">Survey</a><p>
+		   			<div id="legend"></div>
+		   		</div>
+			</div>
+		</div>
+
+			<!-- Page 3: When-->	
+		<div class="section" id="section2">
+			<div class="page">
+		    	<article class="description">
+			    	<h3>Since 2006, incidents have dropped by 42,2%.</h3>
+		    		<p>Mostly due to a shift in Cardiff's figures. In fact, even if it comes in third place, saw his figures halved in the last year and markedly fell by 82% over an eight-year period.  Same trend applies for Vale of Glamorgan, but data dip by a factor of three.
+		    		<p>However, out of all 22 local authorities, only a dozen of them tended to decrease over time.<br>
+					At the top, we find Swansea and Ryondda Cynon Taff, whose numbers gradually rose over the last four years.</p>
+					<p></p>
+					<p class="arrow-info">Some local authorities like Flintshire, Powis and Bridgend saw a strong fluctuation, to later come back to approximately the same figures as 2006.</p>
+					<p>Upward trend for Isle of Anglesey and Denbighshire in the North, and Blaenau Gwent in the South. An interesting the case is the one of Newport whose number has significantly grown and is currently 14 times bigger than in 2006.</p>
+		    	</article>
+				<!-- Visualisation -->
+		    	<div id="line-graph">
+        			<h2>When?</h2>
+		        	<h4>Fly-tipping incidents by local authority overtime (2006-2014)</h4> 
+		        	<p class="right-side">Data source: <a href="" target="_blank">Survey</a><p>
+		       	</div>
+			</div>
+		</div>
+
+		<!--Page 4: What material -->	
+		<div class="section" id="section3">
+			<div class="page">
+		    	<article class="description">
+			    	<h3>2/3 of incidents are from Household, of which 31% are black bags.</h3>
+			    	<p>However, if the number of black bags has been halved from 2009, the same cannot be said for "other household". This should not surprise - just think of the rise in the incidents recorded over last Christmas. People replace furnitures, toys, clothes with new gifts and dump the rest in the streets.</p>
+			    	<p>Other commonly tipped wastes include construction and demolition waste, white goods and green waste.</p>
+			    	<p>A report by the London-wide Initiative on Fly-tipping identified four groups of fly-tippers:
+		    		<ul id="fly-tippers">
+				    	<li>Organised criminal fly-tippers, who fly-tip for financial reward;</li>
+					    <li>Commercial fly-tippers, who fly-tip to avoid disposal charges;</li>
+					    <li>Domestic fly-tippers, who fly-tip to avoid inconvenience; </li>
+					    <li>Travellers. who are accused of far more dumping than they actually do </li>
+					</ul></p>
+					<p>Nevertheless, the main perpetrators of this environmental crime remain irresponsible residents and commercial fly-tippers (someone who has been paid to remove it).</p>
+		    	</article>
+				<!-- Visualisation -->
+		    	<div id="bar-graph">
+					<h2>What material?</h2>
+			 		<h4>Recorded fly-tipping incidents by waste type</h4>
+			 		<p class="right-side">Data source: <a href="" target="_blank">Survey</a><p>
+		        	<form>
+			            <label for="year_select">Select Year: 
+			   	            <select id="year_select">
+				   	            <option selected value="2014">20014-15</option>
+				   	            <option value="2013">2013-14</option>
+				                <option value="2012">2012-13</option>
+				                <option value="2011">2011-12</option>
+		    	                <option value="2010">2010-11</option>
+   		   	                    <option value="2009">2009-10</option>
+				   	        </select>
+			    	    </label>
+			        </form>
+			    </div>
+			</div>
+		</div>
+
+		<!-- Page 5: Costs -->	
+		<div class="section" id="section4">
+			<div class="page">
+				<article class="description">
+					<h3>It's estimated fly-tipping costs more than £1.7 million in clean-up.</h3>
+					<p>It affects council tax budget and uses money that could have better been spent elsewhere. The scatterplot reveals a markedly decrease in the number for Cardiff, while the general trend for the other local authorities has oscillated.</p>
+					<p>Two additional economical impacts there are overlooked:</p>
+					<p>Fly-tipping costs around £105 in landfill tax and gate fees to dispose of one tonne waste.</p>
+					<p>Fly-tipping hotspots are also subject to arson attacks because of the large amount of tyres and gas bottles. This costs in average £1,970 per call out for the Fire and Rescue Services.</p>
+					<p id="green">Case study: £632,000 of funding were secured for The Valleys Regional Park project with the aims to reduce fly-tipping, increase tourism and raise the profile of the South Waste Valleys as a visitor destination. </p>
+				</article>
+				<!-- Visualisation -->
+				 <div id="scat">
+			 		<h2>How much?</h2>
+			    	<h4 id="no-margin-botton">Local authorities with the highest clearance costs in 2014-2015<br> (over 100,000£)</h4>
+			    	<p class="right-side">Data source: <a href="" target="_blank">Survey</a><p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Page 6: How many -->	
+		<div class="section" id="section5">
+			<div class="page">
+				<article id="description6">	
+					<h3>Still a minority think it’s ok to dispose waste irresponsibly<h3>
+					<p>We conducted a survey to understand attitudes towards fly-tipping and to find correlations. A total of 70 people (35 males and 35 females), with different backgrounds, age groups, and education participated.</p>
+					<div class="grey">
+						<h4>What people think</h4>
+						<p class="piccolo"><i>"It's a selfish thing to do because everyone else ends up paying for the clean up through taxes."</i></p>
+						<p class="piccolo"><i>"Appalling. Illegal. Bad for environment."</i></p>
+						<p><i>"Should carry custodial sentence"</i></p>
+						<p><i>"It's incredibly antisocial and disrespectful."</i></p>
+					</div>
+					<p>The main reason why people fly-tip seems to be laziness.</p>
+					<p class="quote">"We provide excellent facilities that could be used. But there are people who have to pay and are reluctant to pay." (D. Rounding)</p> 
+				</article>
+				<div class="right-div">
+					<h2>How many?</h2>
+					<h4>7 people out of 70 admitted to have fly-tipped</h4>
+					<p class="center">
+						<img src="imgs/total.png" alt="littlemen" width="600" height="250"><br>
+						of which:
+						<b>3</b> do not care about the environment,<br>
+						<b>4</b> do not like out-door activities,<br>
+						<b>5</b> do not recycle,<br>
+						<b>6</b> think waste collection are too expensive,<br>
+						<b>7</b> do litter.<br>
+					</p>
+					<div id="novanta">
+						<p class="width"> Fly-tippers justified their action pointing at the lack in the rubbish collection service and the council ineffective waste policies. Some of them think that it can be useful when objects are re-usable, because you can take and give away stuff that way.</p>
+					</div> <!-- Others didn't find dumping sites around the area -->
+					<!-- Visualisation -->
+				</div>
+			</div>
+		</div>
+
+		<!-- Page 7: Litter & Fly-tipping -->	
+		<div class="section" id="section6">
+			<div class="page">
+				<div class="description">
+					<h3>"Local authorities classified dump waste differently"</h3>
+					<p>Also according to David Rounding, we should be skeptical about the numbers we find on Fly-capture.</p>
+					<p class="quote">“We do not view things as fly-tipping, which they do in other places. I can't tell you what the exact difference is, but people don’t record it in the same way. For example if you look at Northhumpton if has far more than we have. But that's because they classify differently."</p>
+					<p>Many councils score as fly-tippers people who leave stuff outside their property hoping that someone who will take it. That's why you get such high numbers.</p>
+					<p class="quote">"I wouldn't call fly-tipping the action of someone leaving something outside their property, that's a sanction 46 and I've never prosecuted it. But if they drive it down the road and chuck it on the verge or somebody else property, then it's a sanction 46 and that's fly-tipping."</p>
+				</div>
+				<div class="right-div">
+					<h3>However... Prosecutions</h3>
+					<p>Prosecutions figures are very different depending on which councils. If you look at the flycapture data on prosecutions, a large numbers of those are not for prosecution flytipping, people recorde them as such. I suspect the councils with the biggest prosecutions numbers. We convinct in average of one a week, anybody who convict more than 60 prosecutions per year, they are either moving mountains or they are (11:15). We are very robust prosecutive authority and we get to be one in 25 that we convict. Some councils classify things like someone who puts a bag of waste beside their bin on a collection day like fly-tipping.</p>
+					<div id="chart"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Page 8: Conclusion -->	
+		<div class="section" id="section7">
+			<div class="page">
+				<div class="description">
+					<h3>Are people who litter potential fly-tippers?</h3>
+					<p>Consequences? Correlation?</p>
+					<p>(Solutions1) The Enforcement team investigate fly-tipping: they analyse data, examine waste to see we can find where it come from, I do speak with witnesses who see people dumping waste, and I do hide cameras to catch people dumping illegally. To find hotspots is really useful. The enforcement makes a big difference. Their hidden cameras could be set to record videos, but they are not because they get a much better resoltuions with images.</p>
+					<p>Fly-map</p>
+					<p>"We have shown that Enforcement can work, we have less dumping than we did and we have saved lots of money because of that."</p>
+				</div>
+			</div>
+		</div>
+	</div> 
+
+<!-- SCRIPT -->
+	<script type="text/javascript" src="js/vis.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#fullpage').fullpage({
+				anchors: ['firstPage', 'secondPage', '3rdPage','4thpage','5thpage','6thpage','7thpage','8thpage'],
+				// sectionsColor: ['#FEFCFF','#FEFCFF','#FEFCFF','#FEFCFF','#FEFCFF','#FEFCFF','#FEFCFF','#FEFCFF'],
+				navigation: true,
+				navigationPosition: 'right',
+				navigationTooltips: ['Homepage', 'Where', 'When','Material',"Costs",'How many','However','Conclusion']
+			});
+		});
+	</script>
+
+	</body>
+</html>
