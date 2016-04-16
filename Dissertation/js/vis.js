@@ -106,7 +106,7 @@
 
 		queue()
 			.defer(d3.json, "lad.json")
-			.defer(d3.csv, "map.csv")
+			.defer(d3.csv, "csv/where.csv")
 			.await(function(error, b, data){
 				boundaries = b;
 				recycling_data = data;
@@ -168,7 +168,7 @@
 	        .orient("left")
 	    }
 
-	    d3.csv("line.csv", function(error, data) {
+	    d3.csv("csv/when.csv", function(error, data) {
 	    	color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 	    	//console.log('line.csv');
 		    //console.log(data);
@@ -370,7 +370,7 @@
 
 	    var draw_plot = function(year) {
 			
-			d3.csv('material' + year + '.csv', function(data) {
+			d3.csv('csv/material' + year + '.csv', function(data) {
 	            	set_sizes();
 
 	            var max_value = d3.max(data, function(d){ return +d.Value; });
@@ -421,7 +421,7 @@
 		            .style("text-anchor", "end")
 		            .attr("dx", "-10")
 		            .attr("dy", "-5")
-		            .attr("transform", "rotate(-40)" );
+		            .attr("transform", "rotate(-50)" );
 	                
 	  			// create y-axis
 	            svg.select(".y.axis")
@@ -479,7 +479,7 @@
         .style("opacity", 0);
 
     // load data
-    d3.csv("howmuch.csv", function(error, data) {
+    d3.csv("csv/howmuch.csv", function(error, data) {
 
     // change string (from CSV) into number format
     data.forEach(function(d) {
@@ -532,8 +532,8 @@
                 .style("opacity", .9);
             tooltip.html(d["Authority"] + "<br/>Year: " + xValue(d) 
             + "<br/>Accidents: " + yValue(d))
-                .style("left", (d3.event.pageX - 80) + "px")
-                .style("top", (d3.event.pageY - 40) + "px");
+                .style("left", (d3.event.pageX - 30) + "px")
+                .style("top", (d3.event.pageY - 70) + "px");
         })
         .on("mouseout", function(d) {
             d3.select(this)
