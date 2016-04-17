@@ -97,12 +97,14 @@
 	            toolmap
 	                .classed("hidden", false)
 	                .attr("style", "left:"+ d3.event.pageX +"px; top:"+ d3.event.pageY +"px")
-	                .html("<p>" + d.id + "</p>")
+	                .html("<p>" + d.value + "accidents were in</p>")
 	            })
 	            .on("mouseout",  function(d,i) {
 	                toolmap.classed("hidden", true)
 	            });
 		}
+
+		console.log(recycling_data)
 
 		queue()
 			.defer(d3.json, "lad.json")
@@ -120,7 +122,7 @@
 
 	    var margin = {top: 10, right: 150, bottom: 20, left: 80},
 	    width = 750 - margin.left - margin.right,
-	    height = 450 - margin.top - margin.bottom;
+	    height = 460 - margin.top - margin.bottom;
 	  
 	    var parseDate = d3.time.format("%Y").parse;
 
@@ -448,7 +450,7 @@
 
     var margin = {top: 30, right: 20, bottom: 20, left: 70},
         width = 600 - margin.left - margin.right,
-        height = 430 - margin.top - margin.bottom;
+        height = 470 - margin.top - margin.bottom;
 
     // setup x 
     var xValue = function(d) { return d.Year;}, 
@@ -575,8 +577,7 @@
         'use strict';
 
         var dataset = [
-          { label: 'Yes', count: 51 }, 
-          { label: 'No', count: 6 },
+          { label: 'Yes', count: 105 },
           { label: 'N/A', count: 1 }
         ];
 
