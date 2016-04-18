@@ -1,0 +1,285 @@
+
+
+<html>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+<title>Toggle Button Logic</title>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.js"></script>
+<script src="js/colorbrewer.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.js"></script>
+
+<!-- Illustration of some concepts for another code example for class extracted from http://datatools.urban.org/Features/wealth-inequality-charts/ with code from Tim Meko and Ben Chartoff -->
+
+<style>
+    body {
+        font: 16px/24px'Lato', Helvetica, Helvetica Neue, Arial;
+        width: 90%;
+    }
+    .content {
+        background: #f9f9f9;
+        margin: 20px;
+        width: 700px;
+    }
+    .btn {
+        display: inline;
+        font-size: 14px;
+        padding: 14px;
+        cursor: pointer;
+        border: none;
+        color: white;
+        background-color: #1696d2;
+        display: block;
+        line-height: 12px;
+        text-transform: uppercase;
+        text-align: center;
+        float: right;
+        margin: 5px;
+    }
+
+    .selected {
+        background-color: #ccc;
+        border: black;
+    }
+
+    .chart {
+        margin: 0 auto;
+        margin-top: 0px;
+        position: relative;
+        width: 700px;
+        height: 80%;
+    }
+
+    #chart-one {
+        background-color: yellow;
+    }
+
+    #chart-two {
+        background-color: orange;
+    }
+    .btn:hover {
+        background-color: #000;
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+        content: ' ';
+        display: table;
+    }
+    .clearfix:after {
+        clear: both;
+    }
+    .clearfix {
+        *zoom: 1;
+    }
+    .hide {
+        display: none;
+    }
+    .show {
+        display: block;
+    }
+
+    .axis path, .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+
+      .bar {
+        fill: steelblue;
+      }
+
+      .line.line {
+        fill: none;
+        stroke: deeppink;
+        stroke-width: 1.5px;
+      }
+
+      .grid .tick {
+        stroke: lightgrey;
+        opacity: 0.7;
+      }
+
+      .grid path {
+        stroke-width: 0;
+      }
+</style>
+
+
+</head>
+
+<body>
+    <div class='content'>
+        <div class='btn-group clearfix'>
+            <button id='buttonTwo' class='btn'>Cardiff</button>
+            <button id='buttonOne' class='btn selected'>Local Authorities</button>
+        </div>
+
+        <!-- both of the charts are here - we use show/hide to toggle which is visible. -->
+        <div id='chart-one' class='chart show'>
+            <div id="line-graph">
+                <h4>Fly-tipping incidents by local authority (2006-2014)</h4>
+            </div>
+        </div>
+        <div id='chart-two' class='chart hide'>
+            <div id="vis5">
+                <h4>Fly-tipping incidents in Cardiff (2006-2014)</h4>
+            </div>
+        </div>
+    </div>
+
+<script type='text/javascript' src='https://code.jquery.com/jquery-1.9.1.min.js'></script>
+
+<script type="text/javascript" src="js/vis.js"></script>
+
+<script>
+
+        $('#buttonOne').click(function () {
+
+            document.getElementById('chart-two').className = 'chart hide';
+            document.getElementById('chart-one').className = 'chart show';
+
+            document.getElementById('buttonOne').className = 'btn selected';
+            document.getElementById('buttonTwo').className = 'btn';
+
+
+        });
+
+        $("#buttonTwo").click(function () {
+
+            document.getElementById('chart-two').className = 'chart show';
+            document.getElementById('chart-one').className = 'chart hide';
+            document.getElementById('buttonOne').className = 'btn';
+            document.getElementById('buttonTwo').className = 'btn selected';
+
+        });
+
+</script>
+<script>
+// Visualisation 5: Renewable Sources
+
+(function(){
+
+  var margin = {top: 10, right: 20, bottom: 30, left: 100},
+    width = 600 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
+
+  var parseDate = d3.time.format("%Y").parse;
+
+  var x = d3.time.scale()
+    .range([0, width]);
+
+  var y = d3.scale.linear()
+    .range([height, 0]);
+
+  var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+  var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+  var line = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.Renewable); });
+
+  var div = d3.select("#vis5").append("div")   //tooltip
+    .attr("class", "tooltip")               
+    .style("opacity", 0)
+
+  var svg = d3.select("#vis5").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  function make_x_axis() {        
+    return d3.svg.axis()
+      .scale(x)
+      .orient("bottom")
+      .ticks(12)
+  }
+
+  function make_y_axis() {        
+    return d3.svg.axis()
+      .scale(y)
+      .orient("left")
+      .ticks(8)
+  }
+
+  d3.csv("cardiff.csv", function(error, data) {
+    data.forEach(function(d) {
+      d.date = parseDate(d.date);
+      d.Renewable = +d.Renewable;
+    });
+
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  
+  y.domain([
+      0, d3.max(data, function(v) { return v.Renewable; })
+  ]);
+
+  svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
+
+  svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -50)
+    .attr("x", -180)
+    .attr("dy", ".71em")
+    .style("text-anchor", "end")
+    //.text("Percentage %");
+
+  svg.append("path")
+    .datum(data)
+    .attr("class", "line")
+    .attr("d", line);
+
+  svg.append("g")         
+    .attr("class", "grid")
+    .attr("transform", "translate(0," + height + ")")
+    .call(make_x_axis()
+      .tickSize(-height, 0, 0)
+      .tickFormat("")
+    )
+
+  svg.append("g")         
+    .attr("class", "grid")
+    .call(make_y_axis()
+      .tickSize(-width, 0, 0)
+      .tickFormat("")
+    )
+
+  svg.selectAll("dot")    
+    .data(data)         
+    .enter().append("circle")                               
+    .attr("r", 4) 
+    .attr("opacity", 0)      
+    .attr("cx", function(d) { return x(d.date); })       
+    .attr("cy", function(d) { return y(d.Renewable); })     
+    .on("mouseover", function(d) {      
+      div.transition()        
+        .duration(200)      
+        .style("opacity", 0.7);      
+      div.html(d.Renewable + "%")  
+        .style("left", (d3.event.pageX) + "px")     
+        .style("top", (d3.event.pageY - 28) + "px");    
+    })                  
+    .on("mouseout", function(d) {       
+      div.transition()        
+        .duration(500)      
+        .style("opacity", 0);   
+    });
+  });
+}());
+</script>
+</body>
+</html>

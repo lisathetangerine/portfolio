@@ -121,6 +121,10 @@ img {
 	border-radius: 25px;
 }
 
+#gif {
+	border-radius: 0px;
+}
+
 /* h1 - h6*/
 
 h1 {
@@ -231,20 +235,10 @@ ul#fly-tippers {
 }
  
 /* Page 6: How many*/
-#description6 {
+.description6 {
 	margin-top: 10px;
 	float:left;
 	width: 45%;
-}
-
-.right-div {
-	width: 55%;
-	float: right;
-}
-
-.width {
-	width: 90%;
-	padding-left: 5%;
 }
 
 /* Vis 1: Map */  
@@ -402,7 +396,7 @@ path {
 .border {
 	border-radius: 25px;
 	border: solid 2px black;
-	padding: 10px 20px 10px 20px;
+	padding: 5px 20px 5px 20px;
 	font-weight: lighter;
 	box-shadow: 10px 10px 5px #D0D0D0;
 }

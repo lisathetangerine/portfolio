@@ -13,9 +13,77 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+		<script type='text/javascript' src='https://code.jquery.com/jquery-1.9.1.min.js'></script>
 
 		<script src="js/colorbrewer.js"></script>
 		<script type="text/javascript" src="js/jquery.fullPage.js"></script>
+
+	<style>
+
+	/*toggle	*/
+	    .content {
+        background: #f9f9f9;
+        margin: 20px;
+        width: 600px;
+    }
+    .btn {
+        display: inline;
+        font-size: 14px;
+        padding: 14px;
+        cursor: pointer;
+        border: none;
+        color: white;
+        background-color: #1696d2;
+        display: block;
+        line-height: 12px;
+        text-transform: uppercase;
+        text-align: center;
+        float: right;
+        margin: 5px;
+    }
+
+    .selected {
+        background-color: #ccc;
+        border: black;
+    }
+
+    .chart {
+        margin: 0 auto;
+        margin-top: 0px;
+        position: relative;
+        width: 800px;
+        height: 80%;
+    }
+
+    #chart-one {
+        background-color: pink;
+    }
+
+    #chart-two {
+        background-color: orange;
+    }
+    .btn:hover {
+        background-color: #000;
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+        content: ' ';
+        display: table;
+    }
+    .clearfix:after {
+        clear: both;
+    }
+    .clearfix {
+        *zoom: 1;
+    }
+    .hide {
+        display: none;
+    }
+    .show {
+        display: block;
+    }
+	</style>
 	</head>
 
 	<body>
@@ -28,14 +96,14 @@
 					<h2 id="subtitle">The illegal dumping of waste</h2>
 					<article id="intro-left">
 						<h3>It is still a problem all over UK, causing serious pollution and being a risk to human health and wildlife. </h3>
-						<img src="imgs/cow.jpg" alt="garbage" width="500" height="320">
+						<img src="imgs/cow.jpg" alt="garbage" width="500" height="350">
 						<p class="right-side">Copiright @ Buckinghamshire Enforcement team</p>
 					</article>
 					<article class="description-right">
 						<p>Despite the good progress made by local authorities, 32,000 were the incidents recorded in Wales during 2014 and 2015. Moreover, the database <a href="statswales.wales.gov.uk/Catalogue/Environment-and-Countryside/Fly-tipping">Fly-capture</a> records only incidents which occur on public land, which means the true scale of fly-tipping is even bigger.</p>
 						<p><b>Fly-tipping is a crime.</b> Its offence is set out in the <a href="http://www.legislation.gov.uk/ukpga/1990/43/contents">Environmental Protection Act 1990</a>. In 2014, new guidelines on sentencing for environmental offences were issued, being the punishment of offenders not always a deterrent to commit the offence.</p>
 						<p>Since then, fines reflect the true cost of fly-tipping on society. In April, a skip hire firm in South Wales was ordered <a href="http://www.bbc.co.uk/news/uk-wales-south-west-wales-36054675">to pay £180,000</a> for dumping thousands of tonnes of waste illegally.</p>
-						<p><b>Fly-tipping is more than a national problem.</b> It is not confined to geographical boundaries, and that's why Wales, Scotland and England are working together to found the best strategy to tackle it.</p>
+						<p><b>Fly-tipping is more than a national problem.</b> It is not confined to geographical boundaries, and that's why Wales, Scotland and England are working together to tackle it.</p>
 					</article>
 			 	</div>
 			</div>
@@ -46,11 +114,12 @@
 		   		<article class="description">
 		    		<h3>The highest number of fly-tipping incidents occurs in South Wales.</h3>
 		    		<p>Ryondda Cyhon Taff leads the way, followed respectively by Swansea, Cardiff and Caephilly, which is not surprising considering they contain high populated towns.</p> 
+		    		<p>A formula to locate it could be <b>"more waste, less distance"</b>:</p>
+		    		<p class="quote">«It's all about how much waste could be dumped and how far you are from that. We get most fly-tipping within a relatively short distance of large population centres where most waste is generated.» (D. Rounding - Enforcement Waste)</p>
 		    		<p>However, if we think there is a merely correlation between the numbers of accidents and the population density, we are wrong. Data show high figures for Northern local authorities such as Isle of Anglesey and Denbighsire, which ranks low on the <a href=https://en.wikipedia.org/wiki/List_of_Welsh_principal_areas_by_population>density table.</a></p>
 		    		<p>Furthermore, looking at the map, what strikes the most are the figures for localities like Wrexham, Monmouthshire and Ceredigion. In fact, summing together their values, they don't even account for 0,1% of the flytipping rates in Wales.</p>
-		    		<p>Fly-tipping varies across Wales, and partly depends on the resources invested by local authorities. A formula to locate the problem could be <b>"more waste, less distance"</b>:<p>
-		    		<p class="quote">«It's all about how much waste there is, that could be dumped, and how far you are from that. We get most fly-tipping within a relatively short distance of large population centres where most waste is generated. » (D. Rounding - Enforcement Waste officer)</p>
-	    		</article>
+		    		<p>Fly-tipping varies across Wales, and partly depends on the resources invested by local authorities.
+				</article>
 	    		<!-- Visualisation -->
 	    		<div id="map">
 					<h2>Where?</h2>
@@ -142,7 +211,7 @@
 		<!-- Page 6: Who -->	
 		<div class="section" id="section5">
 			<div class="page">
-				<article id="description6">	
+				<article class="description6">	
 					<h3>Still a minority think it is ok to dispose waste irresponsibly<h3>
 					<p>We conducted a survey to understand attitudes towards fly-tipping. A total of 70 people (35 males and 35 females), with different age, social backgrounds and education level participated.</p>
 					<p>What we found out is that the main reasons for fly-tipping are mostly laziness and sometimes money:</p>
@@ -156,11 +225,11 @@
 					</div>
 
 				</article>
-				<div class="right-div">
+				<div class="description-right">
 					<h2>Who?</h2>
 					<h4>7 people out of 70 admitted to have fly-tipped</h4>
 					<p class="center">
-						<img src="imgs/total.png" alt="littlemen" width="600" height="250"><br>
+						<img src="imgs/total.png" alt="littlemen" width="500" height="200"><br>
 						of which:
 						<b>3</b> do not care about the environment,<br>
 						<b>4</b> do not like out-door activities,<br>
@@ -168,28 +237,29 @@
 						<b>6</b> do not recycle,<br>
 						<b>7</b> do litter.<br>
 					</p>
-					<p class="width"> Fly-tippers justified their action blaming the lack in the rubbish collection service and the council ineffective waste policies. Moreover, some of them found it useful when objects can be re-used, because you can take and give away stuff that way. <i>"I once found a working telly in my home street"</i>, confessed one of the guy. </p>
+					<p>Fly-tippers justified their action blaming the lack in the rubbish collection service and the council ineffective waste policies. Moreover, some of them found it useful when objects can be re-used, because you can take and give away stuff that way. <i>"I once found a working telly in my home street"</i>, confessed one of the guy. </p>
 				</div>
 			</div>
 		</div>
 
-		<!-- Page 7: Litter & Fly-tipping -->	
+		<!-- Page 7: Enforcement-->	
 		<div class="section" id="section6">
 			<div class="page">
-				<article class="description">
+				<article class="description6">
 					<h3>«Local authorities classified dump waste differently»</h3>
-					<p>About people who leave stuff outside their property hoping that someone will "rescue" them, Rouding said:</p>
-					<p class="quote">«I wouldn't call that action fly-tipping. That's a sanction 46 and I've never prosecuted it. But if they drive down the road and chuck it on the verge of somebody else property, then it's a sanction 46 and that's fly-tipping.» </p>
-					<p>According to him, we should also be quite skeptical about the figures we find on Fly-capture.</p>
-					<p class="quote">«Sometimes we do not view things as fly-tipping, which they do in other counties. I can't tell you what the exact difference is, but people don’t record it in the same way. For example if you look at the data for Northampton, it is far more higher than the one we have here in Buckinghamshire, but that's just because they classify it differently.»</p>
-					<p>Apparently, many councils score as fly-tipping things like someone who puts a bag of waste beside their bin on a collection day. That's why you get such high numbers.</p>
+					<p>About people who leave stuff outside their property hoping that someone will rescue them, Rouding said:</p>
+					<p class="quote">«I wouldn't call that action fly-tipping. That's a sanction 46 and I've never prosecuted it. But if they drive down the road and chuck it on the verge of somebody else property, then it becomes a sanction 44 and that's considered fly-tipping.»</p>
+					<p>According to him, we should be quite skeptical about the figures we find on Fly-capture. It seems that many councils reach such high numbers because they score as fly-tipping things that are not essentially such. Even an action like leaving a bag of rubbish beside the bin on a collection day is considered fly-tipping somewhere.</p>
+					<p class="quote">«Sometimes we do not view things as fly-tipping, which they do in other counties. I can't tell you what the exact difference is, but people don’t record it in the same way. If you look at the data for Northampton, it is far more higher than the one we have here in Buckinghamshire, but that's just because they classify fly-tipping differently.»</p>
+					<p>The same argument can be applied on prosecution numbers.</p>
 				</article>
 				<article class="description-right">
-					<h2>Devious data</h2>
-					<h4>105 Prosecutions out of 18,139 investigations</h4>
-					<p>Also prosecutions figures vary drastically.</p>
-					<p class="quote">“If you look at the flycapture data on prosecutions, a large numbers of those are not for prosecute flytipping. People record them as such, but they are not. I suspect the councils with the biggest prosecutions numbers, they are either moving mountains or they are (11:15). We are very robust prosecutive authority and we convinct in average of one a week. Anybody who convict more than 60 prosecutions per year”</p>
+					<h2>Data don't always tell the truth</h2>
+					<h4>Fly-tipping prosecution outcomes in 2014-2015</h4>
 					<div id="chart"></div>
+					<p>The Welsh prosecutions number is vastly outnumbered by the English one. In Wales only 105 prosecutions were recorder last year, while in England numbers were 94% higher than that, with local authorities carrying 1810 prosecutions.</p>
+					<p>However, we can’t just rely on data. We should bear in mind, especially when are in front of big numbers, that many local authorities include in their figures things there are not actual prosecution.</p>					
+					<p class="quote">«I suspect the councils with the biggest prosecutions numbers, they are either moving mountains or they are (11:15). We are a very robust prosecutive authority and we convict in average of one a week. Every local authority that says that it convicts more than 60 prosecutions per year is lying.» (D. Rounding)</p>
 				</article>
 			</div>
 		</div>
@@ -197,13 +267,18 @@
 		<!-- Page 8: Conclusion -->	
 		<div class="section" id="section7">
 			<div class="page">
-				<div class="description">
+				<article class="description">
 					<h3>Are people who litter potential fly-tippers?</h3>
 					<p>Consequences? Correlation?</p>
-					<p>(Solutions1) The Enforcement team investigate fly-tipping: they analyse data, examine waste to see we can find where it come from, I do speak with witnesses who see people dumping waste, and I do hide cameras to catch people dumping illegally. To find hotspots is really useful. The enforcement makes a big difference. Their hidden cameras could be set to record videos, but they are not because they get a much better resoltuions with images.</p>
-					<p>Fly-map</p>
-					<p>"We have shown that Enforcement can work, we have less dumping than we did and we have saved lots of money because of that."</p>
-				</div>
+					<p>Fly-map, To find hotspots is really useful. </p>
+				</article>
+				<article class="description-right">
+					<h2>Enforcement can be a solution</h2>
+					<p>The Enforcement Waste team investigates fly-tipping. They analyse data, examine waste to understand where it comes from, speak with witnesses who saw people dumping waste and hide cameras to catch people dumping illegally. Their hidden cameras could be set to record videos, but they are not because they get a better resolutions with images.</p>
+					<img id="gif" src="camera.gif" alt="This will display an animated GIF">
+					<p class="quote">"We have shown that Enforcement can work, we have less dumping than we did and we have saved lots of money because of that."</p>
+					<p>As shown for English data, Enforcement makes a big difference and that's why Wales should invest more in it.</p>
+				</article>
 			</div>
 		</div>
 	</div> 
@@ -211,6 +286,7 @@
 <!-- SCRIPT -->
 	<script type="text/javascript" src="js/vis.js"></script>
 
+<!-- Menu -->
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#fullpage').fullpage({
@@ -221,6 +297,26 @@
 				navigationTooltips: ['Homepage', 'Where', 'When','Material',"Costs",'Who','However','Conclusion']
 			});
 		});
+	</script>
+
+<!-- Toggle -->
+	<script>
+
+        $('#buttonOne').click(function () {
+            document.getElementById('chart-two').className = 'chart hide';
+            document.getElementById('chart-one').className = 'chart show';
+
+            document.getElementById('buttonOne').className = 'btn selected';
+            document.getElementById('buttonTwo').className = 'btn';
+        });
+
+        $("#buttonTwo").click(function () {
+            document.getElementById('chart-two').className = 'chart show';
+            document.getElementById('chart-one').className = 'chart hide';
+            document.getElementById('buttonOne').className = 'btn';
+            document.getElementById('buttonTwo').className = 'btn selected';
+        });
+
 	</script>
 
 	</body>

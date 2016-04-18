@@ -122,7 +122,7 @@
 
 	    var margin = {top: 10, right: 150, bottom: 20, left: 80},
 	    width = 750 - margin.left - margin.right,
-	    height = 460 - margin.top - margin.bottom;
+	    height = 430 - margin.top - margin.bottom;
 	  
 	    var parseDate = d3.time.format("%Y").parse;
 
@@ -577,16 +577,20 @@
         'use strict';
 
         var dataset = [
-          { label: 'Yes', count: 105 },
-          { label: 'N/A', count: 1 }
+          { label: 'Fine', count: 85 },
+          { label: 'Case lost', count: 1 },
+          { label: 'Community service', count: 2 },
+          { label: 'Other (successful)', count: 3 },
+          { label: 'Discharge', count: 14 }
+          // { label: 'Custodial Sentence', count: 0 },
         ];
 
-        var width = 150;
-        var height = 150;
+        var width = 180;
+        var height = 180;
         var radius = Math.min(width, height) / 2;
 
    		var color = d3.scale.ordinal()
-        	.range(["#66c2a5","#fc8d62","#8da0cb"]);
+        	.range(["#669933","blue","black","orange","#D00000"]);
 
         var svg = d3.select('#chart')
           .append('svg')
@@ -613,3 +617,126 @@
           });
 
       })(window.d3);
+
+// Visualisation 5: Renewable Sources / simple line graph
+
+(function(){
+
+  var margin = {top: 10, right: 20, bottom: 30, left: 50},
+    width = 700 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
+
+  var parseDate = d3.time.format("%Y").parse;
+
+  var x = d3.time.scale()
+    .range([0, width]);
+
+  var y = d3.scale.linear()
+    .range([height, 0]);
+
+  var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+  var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+  var line = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.Renewable); });
+
+  var div = d3.select("#vis5").append("div")   //tooltip
+    .attr("class", "tooltip")               
+    .style("opacity", 0)
+
+  var svg = d3.select("#vis5").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  function make_x_axis() {        
+    return d3.svg.axis()
+      .scale(x)
+      .orient("bottom")
+      .ticks(12)
+  }
+
+  function make_y_axis() {        
+    return d3.svg.axis()
+      .scale(y)
+      .orient("left")
+      .ticks(8)
+  }
+
+  d3.csv("renewable.csv", function(error, data) {
+    data.forEach(function(d) {
+      d.date = parseDate(d.date);
+      d.Renewable = +d.Renewable;
+    });
+
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  
+  y.domain([
+      0, d3.max(data, function(v) { return v.Renewable; })
+  ]);
+
+  svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
+
+  svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -50)
+    .attr("x", -180)
+    .attr("dy", ".71em")
+    .style("text-anchor", "end")
+    .text("Percentage %");
+
+  svg.append("path")
+    .datum(data)
+    .attr("class", "line")
+    .attr("d", line);
+
+  svg.append("g")         
+    .attr("class", "grid")
+    .attr("transform", "translate(0," + height + ")")
+    .call(make_x_axis()
+      .tickSize(-height, 0, 0)
+      .tickFormat("")
+    )
+
+  svg.append("g")         
+    .attr("class", "grid")
+    .call(make_y_axis()
+      .tickSize(-width, 0, 0)
+      .tickFormat("")
+    )
+
+  svg.selectAll("dot")    
+    .data(data)         
+    .enter().append("circle")                               
+    .attr("r", 4) 
+    .attr("opacity", 0)      
+    .attr("cx", function(d) { return x(d.date); })       
+    .attr("cy", function(d) { return y(d.Renewable); })     
+    .on("mouseover", function(d) {      
+      div.transition()        
+        .duration(200)      
+        .style("opacity", 0.7);      
+      div.html(d.Renewable + "%")  
+        .style("left", (d3.event.pageX) + "px")     
+        .style("top", (d3.event.pageY - 28) + "px");    
+    })                  
+    .on("mouseout", function(d) {       
+      div.transition()        
+        .duration(500)      
+        .style("opacity", 0);   
+    });
+  });
+}());
