@@ -93,18 +93,18 @@
 	// Tooltip
 	        g.selectAll(".area")
 	            .on("mousemove", function(d,i) {
-
+	            	console.log(d);
+	            	// console.log(this);
 	            toolmap
 	                .classed("hidden", false)
 	                .attr("style", "left:"+ d3.event.pageX +"px; top:"+ d3.event.pageY +"px")
-	                .html("<p>" + d.value + "accidents were in</p>")
+	                .html("<p>Local Authority: " + d.properties.LAD13NM + 
+	                	"<br>Incidents: " + get_value_by_id(d.id)  +  "</p>")
 	            })
 	            .on("mouseout",  function(d,i) {
 	                toolmap.classed("hidden", true)
 	            });
 		}
-
-		console.log(recycling_data)
 
 		queue()
 			.defer(d3.json, "lad.json")
@@ -114,162 +114,6 @@
 				recycling_data = data;
 				draw_map();
 			})
-	}());
-
-// Visualisation 2: Line graph 
-
-	(function(){
-
-	    var margin = {top: 10, right: 150, bottom: 20, left: 80},
-	    width = 750 - margin.left - margin.right,
-	    height = 430 - margin.top - margin.bottom;
-	  
-	    var parseDate = d3.time.format("%Y").parse;
-
-	    var x = d3.time.scale()
-	        .range([0, width]);
-
-	    var y = d3.scale.linear()
-	        .range([height, 0]);
-
-	    var color = d3.scale.category10();
-
-	    var xAxis = d3.svg.axis()
-	        .scale(x)
-	        .orient("bottom");
-
-	    var yAxis = d3.svg.axis()
-	        .scale(y)
-	        .orient("left");
-
-	    var line = d3.svg.line()
-	        .interpolate("linear")
-	        .x(function(d) { return x(d.date); })
-	        .y(function(d) { return y(d.accidents); })
-
-	    var div = d3.select("#line-graph").append("div")   //tooltip
-	    	.attr("class", "tooltip")               
-	    	.style("opacity", 0);
-
-	    var svg = d3.select("#line-graph").append("svg")
-		    .attr("width", width + margin.left + margin.right)
-		    .attr("height", height + margin.top + margin.bottom)
-		    .append("g")
-		    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-	//grid
-	    function make_x_axis() {        
-	        return d3.svg.axis()
-	        .scale(x)
-	        .orient("bottom")
-	    }
-
-	    function make_y_axis() {        
-	    	return d3.svg.axis()
-	        .scale(y)
-	        .orient("left")
-	    }
-
-	    d3.csv("csv/when.csv", function(error, data) {
-	    	color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
-	    	//console.log('line.csv');
-		    //console.log(data);
-
-		    data.forEach(function(d) {
-		        d.date = parseDate(d.date);
-		    });
-
-		    var materials = color.domain().map(function(name) {
-		        return {
-		        	name: name,
-		        	values: data.map(function(d) {
-		            	return {date: d.date, accidents: +d[name]};
-		        	})
-		      	};
-		    });
-
-	    console.log(materials);
-
-	    x.domain(d3.extent(data, function(d) { return d.date; }));
-	    y.domain([
-	      0, d3.max(materials, function(c) { return d3.max(c.values, function(v) { return v.accidents; }); })
-	    ]);
-
-	    svg.append("g")
-	        .attr("class", "x axis")
-	        .attr("transform", "translate(0," + height + ")")
-	        .call(xAxis);
-
-	    svg.append("g")
-	        .attr("class", "y axis")
-	        .call(yAxis)
-	        .append("text")
-	     	.attr("transform", "rotate(-90)")
-	        .attr("y", -80)
-	        .attr("x", -200)
-	        .attr("dy", ".71em")
-	        .style("text-anchor", "end")
-	        .text("");
-
-	    var bysize = svg.selectAll(".year")
-	        .data(materials)
-	        .enter().append("g")
-	        .attr("class", "year");
-
-	    bysize.append("path")
-	        .attr("class", "line")
-	        .attr("d", function(d) { return line(d.values); })
-	        .style("stroke", function(d) { return color(d.name); });
-
-	    svg.append("g")         
-	        .attr("class", "grid")
-	        .attr("transform", "translate(0," + height + ")")
-	        .call(make_x_axis()
-	        .tickSize(-height, 0, 0)
-	        .tickFormat("")
-	    	)
-
-	    svg.append("g")         
-	        .attr("class", "grid")
-	        .call(make_y_axis()
-	        .tickSize(-width, 0, 0)
-	        .tickFormat("")
-	        )
-
-	    // Tooltip dots 
-	    var dot_group = svg.selectAll(".dot")    
-	        .data(materials)         
-	        .enter().append("g");
-
-	    dot_group.selectAll(".dots")
-	    	.data(function(d){
-				var values = d.values;
-	    		values.forEach(function(v){
-	    			v.name = d.name;
-	    		})
-	    		return values;
-	    	})
-	    	.enter()
-	    	.append("circle")
-	        .attr("r", 4) 
-	        .attr("opacity", 0)      
-	        .attr("cx", function(d) { return x(d.date); })       
-	        .attr("cy", function(d) { return y(d.accidents); })     
-	        .on("mouseover", function(d) {
-	       		console.log(d3.event.pageX);  
-	       		div.transition()        
-	            .duration(100)      
-	            .style("opacity", 0.7);      
-	        	div.html("Incidents in " + d.name + " are " + d.accidents)  
-	          	.style("left", (d3.event.pageX - 70)+ "px")     
-	          	.style("top", (d3.event.pageY - 100) + "px");    
-	        })                  
-	      	.on("mouseout", function(d) {       
-	        	div.transition()        
-	          	.duration(300)      
-	          	.style("opacity", 0);   
-	      	});
-	  	});
 	}());
 
 // Visualisation 3: Bar graph
@@ -289,6 +133,8 @@
 
 	// a scale of colours
 	    var colour_scale = d3.scale.quantile().range(colorbrewer.YlGnBu[9]);
+
+	    colorbrewer.GnBu[9]
 
 	// define x-scale and y-scale
 	    var x_scale = d3.scale.ordinal()
@@ -340,7 +186,7 @@
 
 	        svg.append("rect")
 	            .attr("id","center")
-	            .attr("height", 400)
+	            .attr("height", 500)
 	   	        .attr("width", 600) // ?
 	            .attr("fill", "white");
 
@@ -450,7 +296,7 @@
 
     var margin = {top: 30, right: 20, bottom: 20, left: 70},
         width = 600 - margin.left - margin.right,
-        height = 470 - margin.top - margin.bottom;
+        height = 500 - margin.top - margin.bottom;
 
     // setup x 
     var xValue = function(d) { return d.Year;}, 
@@ -528,7 +374,8 @@
         .on("mouseover", function(d) {
             d3.select(this)
                 .transition(200)
-                .attr("r", 10);
+                .attr("r", 10)
+                // .style("fill","black");
             tooltip.transition()
                 .duration(200)
                 .style("opacity", .9);
@@ -618,125 +465,555 @@
 
       })(window.d3);
 
-// Visualisation 5: Renewable Sources / simple line graph
+// Line graph 
 
 (function(){
+	//Dimensions and padding
+	var fullwidth = 700;
+	var fullheight = 500;
+	var margin = {top: 10, right: 100, bottom: 40, left:100};
 
-  var margin = {top: 10, right: 20, bottom: 30, left: 50},
-    width = 700 - margin.left - margin.right,
-    height = 450 - margin.top - margin.bottom;
+	var width = fullwidth - margin.left - margin.right;
+	var height = fullheight - margin.top - margin.bottom;
 
-  var parseDate = d3.time.format("%Y").parse;
+	//Set up date formatting and years
+	var dateFormat = d3.time.format("%Y");
 
-  var x = d3.time.scale()
-    .range([0, width]);
+	//Set up scales
+	var xScale = d3.time.scale()
+		.range([ 0, width ]);
 
-  var y = d3.scale.linear()
-    .range([height, 0]);
+	var yScale = d3.scale.linear()
+		.range([ 0, height ]);
 
-  var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
+	//Configure axis generators
+	var xAxis = d3.svg.axis()
+		.scale(xScale)
+		.orient("bottom")
+		.tickFormat(function(d) {
+			return dateFormat(d);
+		})
+		.outerTickSize([0])
+		.innerTickSize([0]);
 
-  var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
+	var yAxis = d3.svg.axis()
+		.scale(yScale)
+		.orient("left")
+		.outerTickSize([0]);
 
-  var line = d3.svg.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.Renewable); });
+	//Configure line generator. Each line must have a d.year and a d.amount 
+	var line = d3.svg.line()
+		.x(function(d) {
+			return xScale(dateFormat.parse(d.year));
+		})
+		.y(function(d) {
+			return yScale(+d.amount);
+		});
 
-  var div = d3.select("#vis5").append("div")   //tooltip
-    .attr("class", "tooltip")               
-    .style("opacity", 0)
+	// Create SVG
+	var svg = d3.select("#line-graph")
+		.append("svg")
+		.attr("width", fullwidth)
+		.attr("height", fullheight)
+		.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  var svg = d3.select("#vis5").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  function make_x_axis() {        
-    return d3.svg.axis()
-      .scale(x)
-      .orient("bottom")
-      .ticks(12)
-  }
+	var tooltip = d3.select("body")
+      	.append("div")
+      	.attr("class", "tooltip");
 
-  function make_y_axis() {        
-    return d3.svg.axis()
-      .scale(y)
-      .orient("left")
-      .ticks(8)
-  }
+	// Load data
+	d3.csv("when.csv", function(data) {
 
-  d3.csv("renewable.csv", function(error, data) {
-    data.forEach(function(d) {
-      d.date = parseDate(d.date);
-      d.Renewable = +d.Renewable;
-    });
+		var years = ["2006", "2007", "2008", "2009", "2010","2011","2012","2013","2014"];
 
-  x.domain(d3.extent(data, function(d) { return d.date; }));
-  
-  y.domain([
-      0, d3.max(data, function(v) { return v.Renewable; })
-  ]);
+		var dataset = [];
 
-  svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
+		data.forEach(function (d, i) {
+			var myIncidents = [];
+			years.forEach(function (y) {
+				if (d[y]) {
+					myIncidents.push({
+						authority: d.LocalAuthority,
+						year: y,
+						amount: d[y]
+						});
+				}
 
-  svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis)
-    .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", -50)
-    .attr("x", -180)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .text("Percentage %");
+			});
 
-  svg.append("path")
-    .datum(data)
-    .attr("class", "line")
-    .attr("d", line);
+			dataset.push( {
+				authority: d.LocalAuthority,
+				emissions: myIncidents
+				} );
+		});
 
-  svg.append("g")         
-    .attr("class", "grid")
-    .attr("transform", "translate(0," + height + ")")
-    .call(make_x_axis()
-      .tickSize(-height, 0, 0)
-      .tickFormat("")
-    )
+		//Set scale domains
+		xScale.domain(
+			d3.extent(years, function(d) {
+				return dateFormat.parse(d);
+			}));
 
-  svg.append("g")         
-    .attr("class", "grid")
-    .call(make_y_axis()
-      .tickSize(-width, 0, 0)
-      .tickFormat("")
-    )
+		yScale.domain([
+			d3.max(dataset, function(d) {
+				return d3.max(d.emissions, function(d) {
+					return +d.amount;
+				});
+			}),
+			0
+		]);
 
-  svg.selectAll("dot")    
-    .data(data)         
-    .enter().append("circle")                               
-    .attr("r", 4) 
-    .attr("opacity", 0)      
-    .attr("cx", function(d) { return x(d.date); })       
-    .attr("cy", function(d) { return y(d.Renewable); })     
-    .on("mouseover", function(d) {      
-      div.transition()        
-        .duration(200)      
-        .style("opacity", 0.7);      
-      div.html(d.Renewable + "%")  
-        .style("left", (d3.event.pageX) + "px")     
-        .style("top", (d3.event.pageY - 28) + "px");    
-    })                  
-    .on("mouseout", function(d) {       
-      div.transition()        
-        .duration(500)      
-        .style("opacity", 0);   
-    });
-  });
+		//Make a group for each authority
+		var groups = svg.selectAll("g")
+			.data(dataset)
+			.enter()
+			.append("g");
+
+		groups.selectAll("path")
+			.data(function(d) { 
+				return [ d.emissions ];
+			})
+			.enter()
+			.append("path")
+			.attr("class", "line")
+			.classed("unfocused", true) 
+			.attr("id", function(d) {
+				if (d[0] && d[0].length != 0) {
+					return d[0].authority.replace(/ |,|\./g, '_');
+				}
+			})
+			.attr("d", line);
+
+	// Tooltip dots
+
+	var circles = groups.selectAll("circle")
+						.data(function(d) { // because there's a group with data already...
+									return d.emissions; // NOT an array here.
+						})
+						.enter()
+						.append("circle");
+
+		circles.attr("cx", function(d) {
+				return xScale(dateFormat.parse(d.year));
+			})
+			.attr("cy", function(d) {
+				return yScale(d.amount);
+			})
+			.attr("r", 3)
+			.attr("id", function(d) {
+				return d.authority.replace(/ |,|\./g, '_');
+			})
+			.style("opacity", 0); // this is optional - if you want visible dots or not!
+
+		// Adding a subtle animation to increase the dot size when over it!
+
+		circles
+			.on("mouseover", mouseoverFunc)
+			.on("mousemove", mousemoveFunc)
+			.on("mouseout",	mouseoutFunc);
+
+	// text label
+	groups.append("text")
+      .attr("x", function(d) {
+      	if (d.emissions.length != 0) {
+	      	var lastYear = d.emissions[d.emissions.length-1].year;
+	      	return xScale(dateFormat.parse(lastYear));
+	      }
+      })
+      .attr("y", function(d) {
+      	if (d.emissions.length != 0) {
+	      	var lastAmount = d.emissions[d.emissions.length-1].amount;
+	      	return yScale(+lastAmount);
+      	}
+      })
+      .attr("dx", "3px")
+      .attr("dy", "3px")
+      .text(function(d) {
+      	if (d.emissions.length != 0) {
+      		var lastAmount = d.emissions[d.emissions.length-1].amount;
+      		if (+lastAmount > 1800) {
+      			return d.authority;
+      		}
+      	}
+      })
+      .attr("class", "linelabel");
+
+		//Axes
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis);
+
+		svg.append("g")
+			.attr("class", "y axis")
+			.call(yAxis);
+
+		function mouseoverFunc(d) {
+			// this will highlight both a dot and its line.
+			var lineid = d3.select(this).attr("id");
+
+			d3.select(this)
+				.transition()
+				.style("opacity", 1)
+				.attr("r", 4);
+
+			d3.select("path#" + lineid).classed("focused", true).classed("unfocused", false);
+
+			tooltip
+				.style("display", null)
+				.html("<p>Local Authority: " + d.authority +
+							"<br>Year: " + d.year +
+						  "<br>Incidents: " + d.amount + "</p>");
+			}
+
+		function mousemoveFunc(d) {
+			tooltip
+				.style("top", (d3.event.pageY - 10) + "px" )
+				.style("left", (d3.event.pageX + 10) + "px");
+			}
+
+		function mouseoutFunc(d) {
+			d3.select(this)
+				.transition()
+				.style("opacity", 0)
+				.attr("r", 3);
+
+			d3.selectAll("path.line").classed("unfocused", true).classed("focused", false);
+
+	    tooltip.style("display", "none");  // this sets it to invisible!
+	  }
+
+	}); 
 }());
+
+// Line graph top 3 
+
+(function(){
+	//Dimensions and padding
+	var fullwidth = 700;
+	var fullheight = 500;
+	var margin = {top: 10, right: 100, bottom: 40, left:100};
+
+	var width = fullwidth - margin.left - margin.right;
+	var height = fullheight - margin.top - margin.bottom;
+
+	//Set up date formatting and years
+	var dateFormat = d3.time.format("%Y");
+
+	//Set up scales
+	var xScale = d3.time.scale()
+		.range([ 0, width ]);
+
+	var yScale = d3.scale.linear()
+		.range([ 0, height ]);
+
+	//Configure axis generators
+	var xAxis = d3.svg.axis()
+		.scale(xScale)
+		.orient("bottom")
+		//.ticks('')
+		.tickFormat(function(d) {
+			return dateFormat(d);
+		})
+		.outerTickSize([0])
+		.innerTickSize([0]);
+
+	var yAxis = d3.svg.axis()
+		.scale(yScale)
+		.orient("left")
+		.outerTickSize([0]);
+
+	//Configure line generator. Each line must have a d.year and a d.amount 
+	var line = d3.svg.line()
+		.x(function(d) {
+			return xScale(dateFormat.parse(d.year));
+		})
+		.y(function(d) {
+			return yScale(+d.amount);
+		});
+
+	// Create SVG
+	var svg = d3.select("#vis5")
+		.append("svg")
+		.attr("width", fullwidth)
+		.attr("height", fullheight)
+		.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+	var tooltip = d3.select("body")
+      	.append("div")
+      	.attr("class", "tooltip");
+
+	// Load data
+	d3.csv("top3.csv", function(data) {
+
+		var years = ["2006", "2007", "2008", "2009", "2010","2011","2012","2013","2014"];
+
+		//Create a new, empty array to hold our restructured dataset
+		var dataset = [];
+
+		//Loop once for each row in data
+		data.forEach(function (d, i) {
+
+			var myIncidents = [];
+
+			//Loop through all the years
+			years.forEach(function (y) {
+				if (d[y]) {
+					myIncidents.push({
+						authority: d.LocalAuthority,
+						year: y,
+						amount: d[y]
+						});
+				}
+
+			});
+
+			dataset.push( {
+				authority: d.LocalAuthority,
+				emissions: myIncidents
+				} );
+
+		});
+
+		//Set scale
+		xScale.domain(
+			d3.extent(years, function(d) {
+				return dateFormat.parse(d);
+			}));
+
+		yScale.domain([
+			d3.max(dataset, function(d) {
+				return d3.max(d.emissions, function(d) {
+					return +d.amount;
+				});
+			}),
+			0
+		]);
+
+		var groups = svg.selectAll("g")
+			.data(dataset)
+			.enter()
+			.append("g");
+
+		groups.selectAll("path")
+			.data(function(d) { return [ d.emissions ];	})
+			.enter()
+			.append("path")
+			.attr("class", "line")
+			.classed("unfocused", true) // they are not focused till mouseover
+			.attr("id", function(d) {
+				if (d[0] && d[0].length != 0) {
+					return d[0].authority.replace(/ |,|\./g, '_');
+				}
+			})
+			.attr("d", line);
+
+	// Tooltip dots
+
+	var circles = groups.selectAll("circle")
+						.data(function(d) { return d.emissions; })
+						.enter()
+						.append("circle");
+
+		circles.attr("cx", function(d) {
+				return xScale(dateFormat.parse(d.year));
+			})
+			.attr("cy", function(d) {
+				return yScale(d.amount);
+			})
+			.attr("r", 3)
+			.attr("id", function(d) {
+				return d.authority.replace(/ |,|\./g, '_');
+			})
+			.style("opacity", 0); // this is optional - if you want visible dots or not!
+
+		circles
+			.on("mouseover", mouseoverFunc)
+			.on("mousemove", mousemoveFunc)
+			.on("mouseout",	mouseoutFunc);
+
+
+	groups.append("text")
+      .attr("x", function(d) {
+      	if (d.emissions.length != 0) {
+	      	var lastYear = d.emissions[d.emissions.length-1].year;
+	      	return xScale(dateFormat.parse(lastYear));
+	      }
+      })
+      .attr("y", function(d) {
+      	if (d.emissions.length != 0) {
+	      	var lastAmount = d.emissions[d.emissions.length-1].amount;
+	      	return yScale(+lastAmount);
+      	}
+      })
+      .attr("dx", "3px")
+      .attr("dy", "3px")
+      .text(function(d) {
+      	if (d.emissions.length != 0) {
+      		var lastAmount = d.emissions[d.emissions.length-1].amount;
+      		if (+lastAmount > 4400) {
+      			return d.authority;
+      		}
+      	}
+      })
+      .attr("class", "linelabel");
+
+		//Axes
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis);
+
+		svg.append("g")
+			.attr("class", "y axis")
+			.call(yAxis);
+
+		function mouseoverFunc(d) {
+			// this will highlight both a dot and its line.
+			var lineid = d3.select(this).attr("id");
+
+			d3.select(this)
+				.transition()
+				.style("opacity", 1)
+				.attr("r", 4);
+
+			d3.select("path#" + lineid).classed("focused", true).classed("unfocused", false);
+
+			tooltip
+				.style("display", null)
+				.html("<p>Local Authority: " + d.authority +
+							"<br>Year: " + d.year +
+						  "<br>Incidents: " + d.amount + "</p>");
+			}
+
+		function mousemoveFunc(d) {
+			tooltip
+				.style("top", (d3.event.pageY - 10) + "px" )
+				.style("left", (d3.event.pageX + 10) + "px");
+			}
+
+		function mouseoutFunc(d) {
+			d3.select(this)
+				.transition()
+				.style("opacity", 0)
+				.attr("r", 3);
+
+			d3.selectAll("path.line").classed("unfocused", true).classed("focused", false);
+
+	    tooltip.style("display", "none");  // invisible
+	  }
+
+	}); 
+}()); 
+
+// Pie 
+(function(){
+var pie = new d3pie("pieChart", {
+	"header": {
+		"title": {
+			"fontSize": 24,
+			"font": "verdana"
+		},
+		"subtitle": {
+			"color": "#999999",
+			"fontSize": 12,
+			"font": "open sans"
+		},
+		"titleSubtitlePadding": null
+	},
+	"footer": {
+		"color": "#999999",
+		"fontSize": 10,
+		"font": "open sans",
+		"location": "bottom-left"
+	},
+	"size": {
+		"canvasHeight": 300,
+		"canvasWidth": 460,
+		"pieOuterRadius": "100%"
+	},
+	"data": {
+		"sortOrder": "value-desc",
+		"content": [
+			{
+				"label": "Fine",
+				"value": 85,
+				"color": "#2484c1"
+			},
+			{
+				"label": "Case Lost",
+				"value": 1,
+				"color": "#bf273e"
+			},
+			{
+				"label": "Community Service",
+				"value": 2,
+				"color": "#df9b41"
+			},
+			{
+				"label": "Discharge",
+				"value": 14,
+				"color": "#248838"
+			},
+			{
+				"label": "Other (successful)",
+				"value": 3,
+				"color": "#956412"
+			}
+		]
+	},
+	"labels": {
+		"outer": {
+			"pieDistance": 20
+		},
+		"inner": {
+			"hideWhenLessThanPercentage": 4
+		},
+		"mainLabel": {
+			"fontSize": 11
+		},
+		"percentage": {
+			"color": "#ffffff",
+			"decimalPlaces": 0
+		},
+		"value": {
+			"color": "#adadad",
+			"fontSize": 11
+		},
+		"lines": {
+			"enabled": true
+		},
+		"truncation": {
+			"enabled": true
+		}
+	},
+	"tooltips": {
+		"enabled": true,
+		"type": "placeholder",
+		"string": "{label}: {value}",
+		"styles": {
+			"backgroundOpacity": 0.48
+		}
+	},
+	"effects": {
+		"pullOutSegmentOnClick": {
+			"effect": "linear",
+			"speed": 400,
+			"size": 8
+		}
+	},
+	"misc": {
+		"gradient": {
+			"enabled": true,
+			"percentage": 100
+		},
+		"canvasPadding": {
+			"right": 0
+		}
+	},
+	"callbacks": {}
+});
+}()); 

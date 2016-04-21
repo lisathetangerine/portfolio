@@ -101,6 +101,7 @@ a:hover {
  	width: 90%;
 	font-style: italic;
 	font-size: 12px;
+	margin-bottom: 0px;
 }
 
 .note {
@@ -179,21 +180,90 @@ h3 {
 
 /* Page 2: Where? - Map */
 
+.description1 {
+  	margin-top: 30px;
+	float: left;
+	width: 45%;
+	text-align: justify;
+}
+
 #map {
-	width: 55%;
+	width: 50%;
 	height: 100%;
 	float:right;
 	padding-right: 50px;
 	margin-top: 10px;
 }
 
+.toolmap {
+	position: absolute;
+	z-index: 10;
+}
+
+
+.toolmap p {
+	background-color: white;
+	border: gray 1px solid;
+	padding: 5px;
+	max-width: 200px;
+	text-align: left;
+	font-size: 14px;
+	color: #c60bdd;
+}
+
 /* Page 3: When? and description uses .description3 */
 
-#line-graph {
-	width: 60%;
-	height: 500px;
-	float: right;
-	margin-top: 10px;
+/*Line graph*/
+path.line {
+	fill: none;
+	stroke: #55bada;
+	stroke-width: 1px;
+}
+
+.unfocused {
+	opacity: .7;
+}
+
+.line.focused {
+	stroke-width: 2px;
+	/*stroke-opacity: 100%;*/
+	stroke: #bada55;
+}
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: black;
+	stroke-width: 1px;
+}
+
+.axis text {
+	font-family: sans-serif;
+	font-size: 11px;
+}
+
+text.linelabel {
+	font-size: 9pt;
+	color: gray;
+}
+
+circle {
+	fill: #c60bdd;
+}
+
+.tooltip {
+	position: absolute;
+	z-index: 10;
+}
+
+.tooltip p {
+	color: #c60bdd;
+	background-color: white;
+	border: gray 1px solid;
+	padding: 5px;
+	max-width: 200px;
+	font-size: 14px;
+	text-align: left;
 }
 
 /* Page 1, 2, 3 */ 
@@ -202,7 +272,6 @@ h3 {
   	margin-top: 30px;
 	float: left;
 	width: 40%;
-	height: 100%;
 	text-align: justify;
 }
 
@@ -212,16 +281,25 @@ ul#fly-tippers {
 	line-height: 1.5;
 }
 
+ul#yes{
+	line-height: 1.5;
+	color: green;
+	list-style: none;
+	font-size: 20px;
+}
+
 #bar-graph {
-	width: 60%;
-	height: 500px;
+	width: 58%;
+	height: 520px;
 	float: right;
 	margin-top: 20px;
+	margin-left: 20px;
 }
 
 /* Page 5: How Much? */
 #green {
-	background-color: #00cc99;
+	background-color: steelblue;
+	/*background-color: #00cc99;*/
 	border-radius: 25px;
 	padding: 10px;
 	color: #f2f2f2;
@@ -231,7 +309,7 @@ ul#fly-tippers {
 #scat {
 	margin-top: 20px;
 	float: right;
-	width: 60%;
+	width: 55%;
 }
  
 /* Page 6: How many*/
@@ -269,17 +347,6 @@ li.key {
 	display: none; 
 }
 
-div.tooltip {
-	color: #222; 
-	background: #fff; 
-	padding: .5em; 
-	text-shadow: #f5f5f5 0 1px 0;
-	border-radius: 2px; 
-	box-shadow: 0px 0px 2px 0px #a6a6a6; 
-	opacity: 0.9; 
-	position: absolute;
-}
-
 /* Vis 3 and 4: Bar graph and scatterplot*/ 
 .axis path, .axis line {
 	fill: none;            
@@ -293,7 +360,8 @@ div.tooltip {
 }
 		
 .bar:hover {
-	fill: orangered;
+	fill: #c60bdd;
+	/*fill: orangered;*/
 }	
 
 /* Bar graph tooltip*/
@@ -336,12 +404,15 @@ form {
 }
 
 .tooltip2 {
+	background-color: white;
+	border: gray 1px solid;
+	padding: 5px;
     position: absolute;
-    width: 200px;
-    height: 28px;
+    max-width: 200px;
     pointer-events: none;
-    font-size: 12px;
+    font-size: 14px;
     text-align: left;
+    color: #c60bdd;
 }
 
 /* Bar graph and scatterplot*/ 
@@ -354,33 +425,6 @@ form {
 .axis text {
 	font-family: sans-serif;
 	font-size: 11px;
-}
-
-.line {
-	fill: none;            
-	stroke-width: 1.5px;
-}
-
-.grid .tick {
-	stroke: lightgrey;
-	opacity: 0.7;
-}
-
-.grid path {
-	stroke-width: 0;
-}
-
-div.tooltip {   
-	position: absolute;           
-	text-align: center;           
-	width: 130px;                  
-	height: 46px;                 
-	padding: 6px;             
-	font: 14px sans-serif;        
-	background: lightsteelblue;   
-	border: 0px;
-	border-radius: 8px;           
-	pointer-events: none;         
 }
 
 /* Vis: Pie chart*/
@@ -399,4 +443,67 @@ path {
 	padding: 5px 20px 5px 20px;
 	font-weight: lighter;
 	box-shadow: 10px 10px 5px #D0D0D0;
+}
+
+/* Toogle button */
+.content {
+    margin: 0px;
+    width: 60%;
+    float: right;
+    /*background-color: yellow;*/
+}
+
+.btn {
+    display: inline;
+    font-size: 14px;
+    padding: 14px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    background-color: #1696d2;
+    display: block;
+    line-height: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    float: right;
+    margin: 5px;
+}
+
+.selected {
+    background-color: #ccc;
+    border: black;
+}
+
+.chart {
+    margin: 0 auto;
+    margin-top: 0px;
+    position: relative;
+    width: 700px;
+    height: 80%;
+}
+
+.btn:hover {
+    background-color: #000;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: ' ';
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+.hide {
+    display: none;
+}
+.show {
+    display: block;
+}
+
+.font-size {
+	font-size: 20px;
 }

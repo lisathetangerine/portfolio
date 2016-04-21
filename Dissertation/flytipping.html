@@ -14,80 +14,13 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 		<script type='text/javascript' src='https://code.jquery.com/jquery-1.9.1.min.js'></script>
-
+		
+		<script src="js/d3pie.min.js"></script>
 		<script src="js/colorbrewer.js"></script>
 		<script type="text/javascript" src="js/jquery.fullPage.js"></script>
-
-	<style>
-
-	/*toggle	*/
-	    .content {
-        background: #f9f9f9;
-        margin: 20px;
-        width: 600px;
-    }
-    .btn {
-        display: inline;
-        font-size: 14px;
-        padding: 14px;
-        cursor: pointer;
-        border: none;
-        color: white;
-        background-color: #1696d2;
-        display: block;
-        line-height: 12px;
-        text-transform: uppercase;
-        text-align: center;
-        float: right;
-        margin: 5px;
-    }
-
-    .selected {
-        background-color: #ccc;
-        border: black;
-    }
-
-    .chart {
-        margin: 0 auto;
-        margin-top: 0px;
-        position: relative;
-        width: 800px;
-        height: 80%;
-    }
-
-    #chart-one {
-        background-color: pink;
-    }
-
-    #chart-two {
-        background-color: orange;
-    }
-    .btn:hover {
-        background-color: #000;
-    }
-
-    .clearfix:before,
-    .clearfix:after {
-        content: ' ';
-        display: table;
-    }
-    .clearfix:after {
-        clear: both;
-    }
-    .clearfix {
-        *zoom: 1;
-    }
-    .hide {
-        display: none;
-    }
-    .show {
-        display: block;
-    }
-	</style>
 	</head>
 
 	<body>
-
 		<div id="fullpage">
 			<!-- Page 1: Intro -->
 			<div class="section" id="section0">
@@ -111,7 +44,7 @@
 		<!-- Page 2: Where -->
 		<div class="section" id="section1">
 			<div class="page">
-		   		<article class="description">
+		   		<article class="description1">
 		    		<h3>The highest number of fly-tipping incidents occurs in South Wales.</h3>
 		    		<p>Ryondda Cyhon Taff leads the way, followed respectively by Swansea, Cardiff and Caephilly, which is not surprising considering they contain high populated towns.</p> 
 		    		<p>A formula to locate it could be <b>"more waste, less distance"</b>:</p>
@@ -142,12 +75,25 @@
 					<p>Flintshire, Powis and Bridgend saw a strong fluctuation, to later come back to approximately the same figures as 2006.</p>
 		    	</article>
 				<!-- Visualisation -->
-		    	<div id="line-graph">
-        			<h2>When?</h2>
-		        	<h4>Fly-tipping incidents by local authority overtime (2006-2014)</h4>
-		        	<p class="note">*Figures for Cardiff before 2011 have not been included for a better rappresentation of the data</p>
-		        	<p class="right-side">Data source: <a href="https://statswales.wales.gov.uk/Catalogue/Environment-and-Countryside/Fly-tipping/clearancecostsofflytipping-by-localauthority" target="_blank">StatsWales</a><p>
-		       	</div>
+				<div class='content'>
+					<h2>When?</h2>
+					<h4>Fly-tipping incidents by local authority (2006-2014)</h4>
+						<p class="right-side">Data source: <a href="https://statswales.wales.gov.uk/Catalogue/Environment-and-Countryside/Fly-tipping/clearancecostsofflytipping-by-localauthority" target="_blank">StatsWales</a><p>
+			        <div class='btn-group clearfix'>
+			        	<button id='buttonOne' class='btn selected'>Top 3</button>
+			            <button id='buttonTwo' class='btn'>Other local Authorities</button>
+			        </div>
+
+				    <div id='chart-one' class='chart show'>
+				    	<div id="vis5">  
+				        </div>
+				        
+				    </div>
+				    <div id='chart-two' class='chart hide'>
+				    	<div id="line-graph">
+				        </div>
+				    </div>
+				</div>
 			</div>
 		</div>
 
@@ -191,7 +137,7 @@
 		<!-- Page 5: Costs -->	
 		<div class="section" id="section4">
 			<div class="page">
-				<article class="description">
+				<article class="description1">
 					<h3>It's estimated that fly-tipping costed tax-payers over £1.7 million in clean-up last year.</h3>
 					<p>Fly-tipping affects council tax budget and uses money that could have better been spent elsewhere. The scatterplot reveals a markedly decrease in the number for Cardiff, while the general trend for the other local authorities has significantly oscillated.</p>
 					<p>Two additional economical impacts there are quite often overlooked are:</p>
@@ -213,7 +159,7 @@
 			<div class="page">
 				<article class="description6">	
 					<h3>Still a minority think it is ok to dispose waste irresponsibly<h3>
-					<p>We conducted a survey to understand attitudes towards fly-tipping. A total of 70 people (35 males and 35 females), with different age, social backgrounds and education level participated.</p>
+					<p>We conducted a survey to understand attitudes towards fly-tipping. A total of 70 people (35 males and 35 females) with different age, social backgrounds and education level participated.</p>
 					<p>What we found out is that the main reasons for fly-tipping are mostly laziness and sometimes money:</p>
 					<p class="quote">«We provide excellent facilities that could be used. But there are people who have to pay and are reluctant.» (David Rounding - Enforcement Waste officer)</p>
 					<div class="border">
@@ -228,15 +174,15 @@
 				<div class="description-right">
 					<h2>Who?</h2>
 					<h4>7 people out of 70 admitted to have fly-tipped</h4>
-					<p class="center">
-						<img src="imgs/total.png" alt="littlemen" width="500" height="200"><br>
-						of which:
-						<b>3</b> do not care about the environment,<br>
-						<b>4</b> do not like out-door activities,<br>
-						<b>5</b> think waste collection are too expensive,<br>
-						<b>6</b> do not recycle,<br>
-						<b>7</b> do litter.<br>
-					</p>
+					<p class="center" class="font-size">
+						<img src="imgs/total.png" alt="littlemen" width="500" height="200"></p>
+		    		<ul id="yes">
+				    	<li><b>3</b> do not care about the environment</li>
+					    <li><b>4</b> do not like out-door activities,</li>
+					    <li><b>5</b> think waste collection are too expensive,</li>
+					    <li><b>6</b> do not recycle,</li>
+					    <li><b>7</b> do litter.</li>
+					</ul></p>
 					<p>Fly-tippers justified their action blaming the lack in the rubbish collection service and the council ineffective waste policies. Moreover, some of them found it useful when objects can be re-used, because you can take and give away stuff that way. <i>"I once found a working telly in my home street"</i>, confessed one of the guy. </p>
 				</div>
 			</div>
@@ -256,7 +202,8 @@
 				<article class="description-right">
 					<h2>Data don't always tell the truth</h2>
 					<h4>Fly-tipping prosecution outcomes in 2014-2015</h4>
-					<div id="chart"></div>
+					<div id="pieChart"></div>
+					<!-- <div id="chart"></div> -->
 					<p>The Welsh prosecutions number is vastly outnumbered by the English one. In Wales only 105 prosecutions were recorder last year, while in England numbers were 94% higher than that, with local authorities carrying 1810 prosecutions.</p>
 					<p>However, we can’t just rely on data. We should bear in mind, especially when are in front of big numbers, that many local authorities include in their figures things there are not actual prosecution.</p>					
 					<p class="quote">«I suspect the councils with the biggest prosecutions numbers, they are either moving mountains or they are (11:15). We are a very robust prosecutive authority and we convict in average of one a week. Every local authority that says that it convicts more than 60 prosecutions per year is lying.» (D. Rounding)</p>
@@ -275,9 +222,9 @@
 				<article class="description-right">
 					<h2>Enforcement can be a solution</h2>
 					<p>The Enforcement Waste team investigates fly-tipping. They analyse data, examine waste to understand where it comes from, speak with witnesses who saw people dumping waste and hide cameras to catch people dumping illegally. Their hidden cameras could be set to record videos, but they are not because they get a better resolutions with images.</p>
-					<img id="gif" src="camera.gif" alt="This will display an animated GIF">
+					<img id="gif" src="imgs/camera.gif" alt="This will display an animated GIF">
 					<p class="quote">"We have shown that Enforcement can work, we have less dumping than we did and we have saved lots of money because of that."</p>
-					<p>As shown for English data, Enforcement makes a big difference and that's why Wales should invest more in it.</p>
+					<p>As shown for English data, Enforcement makes a big difference. Wales should invest more in a range of innovative surveillance techniques and enforcement measures to catch fly-tippers.</p>
 				</article>
 			</div>
 		</div>
@@ -299,24 +246,22 @@
 		});
 	</script>
 
-<!-- Toggle -->
+<!-- Toggle buttons -->
 	<script>
+	    $('#buttonOne').click(function () {
+	        document.getElementById('chart-two').className = 'chart hide';
+	        document.getElementById('chart-one').className = 'chart show';
 
-        $('#buttonOne').click(function () {
-            document.getElementById('chart-two').className = 'chart hide';
-            document.getElementById('chart-one').className = 'chart show';
+	        document.getElementById('buttonOne').className = 'btn selected';
+	        document.getElementById('buttonTwo').className = 'btn';
+	    });
 
-            document.getElementById('buttonOne').className = 'btn selected';
-            document.getElementById('buttonTwo').className = 'btn';
-        });
-
-        $("#buttonTwo").click(function () {
-            document.getElementById('chart-two').className = 'chart show';
-            document.getElementById('chart-one').className = 'chart hide';
-            document.getElementById('buttonOne').className = 'btn';
-            document.getElementById('buttonTwo').className = 'btn selected';
-        });
-
+	    $("#buttonTwo").click(function () {
+	        document.getElementById('chart-two').className = 'chart show';
+	        document.getElementById('chart-one').className = 'chart hide';
+	        document.getElementById('buttonOne').className = 'btn';
+	        document.getElementById('buttonTwo').className = 'btn selected';
+	    });
 	</script>
 
 	</body>
