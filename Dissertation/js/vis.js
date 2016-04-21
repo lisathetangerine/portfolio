@@ -524,7 +524,7 @@
       	.attr("class", "tooltip");
 
 	// Load data
-	d3.csv("when.csv", function(data) {
+	d3.csv("csv/when.csv", function(data) {
 
 		var years = ["2006", "2007", "2008", "2009", "2010","2011","2012","2013","2014"];
 
@@ -747,7 +747,7 @@
       	.attr("class", "tooltip");
 
 	// Load data
-	d3.csv("top3.csv", function(data) {
+	d3.csv("csv/top3.csv", function(data) {
 
 		var years = ["2006", "2007", "2008", "2009", "2010","2011","2012","2013","2014"];
 
