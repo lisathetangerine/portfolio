@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css"> -->
 		<title>Fly-tipping</title>
 		<link rel="stylesheet" href="css/maincss.css">
 		<link rel="stylesheet" type="text/css" href="css/jquery.fullPage.css">
@@ -118,6 +120,9 @@
 					<h2>What material?</h2>
 			 		<h4>Recorded fly-tipping incidents by waste type</h4>
 			 		<p class="right-side">Data source: <a href="https://statswales.wales.gov.uk/Catalogue/Environment-and-Countryside/Fly-tipping/recordedflytippingincidents-by-wastetype" target="_blank">StatsWales</a><p>
+		        	<form class="right">
+		        		<label><input type="checkbox"> Sort Values </labels>
+		        	</form>
 		        	<form>
 			            <label for="year_select">Select Year: 
 			   	            <select id="year_select">
@@ -176,7 +181,7 @@
 					<h4>7 people out of 70 admitted to have fly-tipped</h4>
 					<p class="center" class="font-size">
 						<img src="imgs/total.png" alt="littlemen" width="500" height="200"></p>
-		    		<ul id="yes">of which:
+		    		<ul id="yes">
 				    	<li><b>3</b> do not care about the environment</li>
 					    <li><b>4</b> do not like out-door activities,</li>
 					    <li><b>5</b> think waste collection are too expensive,</li>

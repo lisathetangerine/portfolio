@@ -51,7 +51,7 @@
 
 /* Main style */
 body {
-	font-family: "BentonSans";
+	font-family: "Times New Roman";
 	color: black;
 }
 
@@ -238,7 +238,7 @@ path.line {
 }
 
 .axis text {
-	font-family: sans-serif;
+	font-family: "BentonSans"
 	font-size: 11px;
 }
 
@@ -368,7 +368,7 @@ li.key {
 .d3-tip {
 	line-height: 1;
 	padding: 12px;
-	background: rgba(0, 0, 0, 0.8);
+	background: rgba(0, 0, 0, 0.7);
 	color: #fff;
 	border-radius: 2px;
 }
@@ -380,7 +380,7 @@ li.key {
 	font-size: 10px;
 	width: 100%;
 	line-height: 1;
-	color: rgba(0, 0, 0, 0.8);
+	color: rgba(0, 0, 0, 0.7);
 	content: "\25BC"; /* it makes the triangle*/
 	position: absolute;
 	text-align: center;
@@ -423,15 +423,9 @@ form {
 }
 
 .axis text {
-	font-family: sans-serif;
+	/*font-family: sans-serif;*/
 	font-size: 11px;
 }
-
-/* Vis: Pie chart*/
-path {
-      stroke: white;                               
-      stroke-width: 1;                                 
-    }
 
 #littlemen {
 	text-align: left;
@@ -506,4 +500,8 @@ path {
 
 .font-size {
 	font-size: 20px;
+}
+
+form.right {
+	text-align: right;
 }

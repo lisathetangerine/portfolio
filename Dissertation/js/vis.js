@@ -134,8 +134,6 @@
 	// a scale of colours
 	    var colour_scale = d3.scale.quantile().range(colorbrewer.YlGnBu[9]);
 
-	    colorbrewer.GnBu[9]
-
 	// define x-scale and y-scale
 	    var x_scale = d3.scale.ordinal()
 	    var y_scale = d3.scale.linear()
@@ -221,6 +219,10 @@
 			d3.csv('csv/material' + year + '.csv', function(data) {
 	            	set_sizes();
 
+	            data.forEach(function(d) {
+				    d.Value = +d.Value;
+				});
+
 	            var max_value = d3.max(data, function(d){ return +d.Value; });
 
 	            x_scale.domain(data.map(function(d) { return d.Material; }));
@@ -232,6 +234,7 @@
 	                .data(data);            
 
 	            bars
+	            	.data(data)
 	                .enter()
 	                .append("rect")
 	                .attr("x", function(d){ return x_scale(d.Material); })
@@ -276,6 +279,39 @@
 	                .transition()
 	                .duration(transition_duration)
 	                .call(y_axis);
+
+	        	   	d3.select("input").on("change", change);
+
+				var sortTimeout = setTimeout(function() {
+					d3.select("input").property("checked", true).each(change);
+				}, 2000);
+
+				function change() {
+					clearTimeout(sortTimeout);
+
+				    // Copy-on-write since tweens are evaluated after a delay.
+				    var x0 = x_scale.domain(data.sort(this.checked
+				        ? function(a, b) { return b.Value - a.Value; }
+				        : function(a, b) { return d3.ascending(a.Material, b.Material); })
+				        .map(function(d) { return d.Material; }))
+				        .copy();
+
+				    svg.selectAll(".bar")
+				        .sort(function(a, b) { return x0(a.Material) - x0(b.Material); });
+
+				    var transition = svg.transition().duration(750),
+				        delay = function(d, i) { return i * 50; };
+
+				    transition.selectAll(".bar")
+				        .delay(delay)
+				        .attr("x", function(d) { return x0(d.Material); });
+
+				    transition.select(".x_axis")
+				        .call(x_axis)
+				      .selectAll("g")
+				        .delay(delay);
+				}
+
 	        });
 	    }
 
@@ -289,6 +325,7 @@
 	                draw_plot(selected);
 	            })
 	    }();
+
 	}());
 
 // SCATTERPLOT 
@@ -417,53 +454,6 @@
         .text(function(d) { return d;})
     });
 }());
-
-// Pie 
-
-      (function(d3) {
-        'use strict';
-
-        var dataset = [
-          { label: 'Fine', count: 85 },
-          { label: 'Case lost', count: 1 },
-          { label: 'Community service', count: 2 },
-          { label: 'Other (successful)', count: 3 },
-          { label: 'Discharge', count: 14 }
-          // { label: 'Custodial Sentence', count: 0 },
-        ];
-
-        var width = 180;
-        var height = 180;
-        var radius = Math.min(width, height) / 2;
-
-   		var color = d3.scale.ordinal()
-        	.range(["#669933","blue","black","orange","#D00000"]);
-
-        var svg = d3.select('#chart')
-          .append('svg')
-          .attr('width', width)
-          .attr('height', height)
-          .append('g')
-          .attr('transform', 'translate(' + (width / 2) + 
-            ',' + (height / 2) + ')');
-
-        var arc = d3.svg.arc()
-          .outerRadius(radius - 4);
-
-        var pie = d3.layout.pie()
-          .value(function(d) { return d.count; })
-          .sort(null);
-
-        var path = svg.selectAll('path')
-          .data(pie(dataset))
-          .enter()
-          .append('path')
-          .attr('d', arc)
-          .attr('fill', function(d, i) { 
-            return color(d.data.label);
-          });
-
-      })(window.d3);
 
 // Line graph 
 
@@ -984,7 +974,9 @@ var pie = new d3pie("pieChart", {
 			"fontSize": 11
 		},
 		"lines": {
-			"enabled": true
+			"enabled": true,
+			"style": "straight",
+			"color": "segment"
 		},
 		"truncation": {
 			"enabled": true
@@ -995,8 +987,13 @@ var pie = new d3pie("pieChart", {
 		"type": "placeholder",
 		"string": "{label}: {value}",
 		"styles": {
-			"backgroundOpacity": 0.48
-		}
+			"backgroundColor": "white",
+			"backgroundOpacity": 0.8,
+			"fontSize": 14,
+			"padding": 5,
+			"borderRadius": 0,
+			"borderColor": "black"
+		},
 	},
 	"effects": {
 		"pullOutSegmentOnClick": {
