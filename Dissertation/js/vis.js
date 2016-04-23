@@ -332,8 +332,8 @@
 (function(){
 
     var margin = {top: 30, right: 20, bottom: 20, left: 70},
-        width = 600 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        width = 550 - margin.left - margin.right,
+        height = 450 - margin.top - margin.bottom;
 
     // setup x 
     var xValue = function(d) { return d.Year;}, 
@@ -921,8 +921,8 @@ var pie = new d3pie("pieChart", {
 		"location": "bottom-left"
 	},
 	"size": {
-		"canvasHeight": 300,
-		"canvasWidth": 460,
+		"canvasHeight": 250,
+		"canvasWidth": 250,
 		"pieOuterRadius": "100%"
 	},
 	"data": {
