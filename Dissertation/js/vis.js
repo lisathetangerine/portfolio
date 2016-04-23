@@ -5,8 +5,8 @@
 		var recycling_data;
 		var units = "lad";
 
-		var width = 500;
-		var height = 500;
+		var width = 450;
+		var height = 450;
 
 	// projection
 		var projection = d3.geo.albers()
@@ -459,8 +459,8 @@
 
 (function(){
 	//Dimensions and padding
-	var fullwidth = 700;
-	var fullheight = 500;
+	var fullwidth = 650;
+	var fullheight = 450;
 	var margin = {top: 10, right: 100, bottom: 40, left:100};
 
 	var width = fullwidth - margin.left - margin.right;
@@ -681,8 +681,8 @@
 
 (function(){
 	//Dimensions and padding
-	var fullwidth = 700;
-	var fullheight = 500;
+	var fullwidth = 650;
+	var fullheight = 450;
 	var margin = {top: 10, right: 100, bottom: 40, left:100};
 
 	var width = fullwidth - margin.left - margin.right;

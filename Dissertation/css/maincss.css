@@ -72,7 +72,6 @@ p {
 }
 
 .quote {
-	font-style: italic;
 	font-size: 17px;
 }
 
@@ -181,7 +180,7 @@ h3 {
 /* Page 2: Where? - Map */
 
 .description1 {
-  	margin-top: 30px;
+  	margin-top: 0px;
 	float: left;
 	width: 45%;
 	text-align: justify;
@@ -269,7 +268,7 @@ circle {
 /* Page 1, 2, 3 */ 
 
 .description {
-  	margin-top: 30px;
+  	margin-top: 0px;
 	float: left;
 	width: 40%;
 	text-align: justify;
@@ -283,7 +282,7 @@ ul#fly-tippers {
 
 ul#yes{
 	line-height: 1.5;
-	color: green;
+	color: coral;
 	list-style: none;
 	font-size: 20px;
 }
@@ -292,22 +291,27 @@ ul#yes{
 	width: 58%;
 	height: 520px;
 	float: right;
-	margin-top: 20px;
+	margin-top: 0px;
 	margin-left: 20px;
 }
 
 /* Page 5: How Much? */
-#green {
-	background-color: steelblue;
-	/*background-color: #00cc99;*/
+#blue {
+	background-color: steelblue;/*#00cc99;*/
+	opacity: 0.8;
 	border-radius: 25px;
 	padding: 10px;
 	color: #f2f2f2;
 	font-weight: lighter;
+	text-align: center;
 }
 
+/*.verde {
+	color: green;
+}*/
+
 #scat {
-	margin-top: 20px;
+	margin-top: 0px;
 	float: right;
 	width: 55%;
 }
@@ -433,10 +437,14 @@ form {
 
 .border {
 	border-radius: 25px;
-	border: solid 2px black;
+	border: solid 2px steelblue;
 	padding: 5px 20px 5px 20px;
 	font-weight: lighter;
 	box-shadow: 10px 10px 5px #D0D0D0;
+}
+
+.blue {
+	color: steelblue;
 }
 
 /* Toogle button */
