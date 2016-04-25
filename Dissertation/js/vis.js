@@ -922,7 +922,7 @@ var pie = new d3pie("pieChart", {
 	},
 	"size": {
 		"canvasHeight": 250,
-		"canvasWidth": 250,
+		"canvasWidth": 400,
 		"pieOuterRadius": "100%"
 	},
 	"data": {
