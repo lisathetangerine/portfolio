@@ -215,7 +215,7 @@
 	    }
 
 	    var draw_plot = function(year) {
-			
+			 var ischecked = false;
 			d3.csv('csv/material' + year + '.csv', function(data) {
 	            	set_sizes();
 
@@ -281,13 +281,15 @@
 	                .call(y_axis);
 
 	        	   	d3.select("input").on("change", change);
+	        	
+				// var sortTimeout = setTimeout(function() {
 
-				var sortTimeout = setTimeout(function() {
-					d3.select("input").property("checked", true).each(change);
-				}, 2000);
+				// 	d3.select("input").property("checked", false).each(change);
+				// }, 2000);
 
 				function change() {
-					clearTimeout(sortTimeout);
+				
+					//clearTimeout(sortTimeout);
 
 				    // Copy-on-write since tweens are evaluated after a delay.
 				    var x0 = x_scale.domain(data.sort(this.checked
@@ -316,6 +318,7 @@
 	    }
 
 	    var init = function() {
+			console.log('r')
 	        set_sizes();
 	        init_plot();
 	        draw_plot(2014);
@@ -323,9 +326,10 @@
 	            .on('change', function() {
 	                var selected = this.options[this.selectedIndex].value;
 	                draw_plot(selected);
+
 	            })
 	    }();
-
+draw_plot(2014);
 	}());
 
 // SCATTERPLOT 
@@ -921,7 +925,7 @@ var pie = new d3pie("pieChart", {
 		"location": "bottom-left"
 	},
 	"size": {
-		"canvasHeight": 250,
+		"canvasHeight": 300,
 		"canvasWidth": 400,
 		"pieOuterRadius": "100%"
 	},
@@ -963,7 +967,7 @@ var pie = new d3pie("pieChart", {
 			"hideWhenLessThanPercentage": 4
 		},
 		"mainLabel": {
-			"fontSize": 11
+			"fontSize": 12
 		},
 		"percentage": {
 			"color": "#ffffff",
