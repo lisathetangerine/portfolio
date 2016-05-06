@@ -109,13 +109,6 @@ a:hover {
 	font-size: 12px;
 	color: grey;
 }
-
-/* Vertical align
-	.intro {
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
-}*/
 	
 img {
 	border-radius: 25px;
@@ -125,8 +118,6 @@ img {
 	border-radius: 0px;
 	width: 80%;
 }
-
-/* h1 - h6*/
 
 h1 {
 	font-size: 20px;
@@ -147,13 +138,13 @@ h2#subtitle{
 	color:rgba(0,0,0,0.7);
 }
 
-/* Title/description of visualisations*/
+/* Title visualisation */
 h4 {
 	font-weight: bold;
 	margin: 15px;
 }
 
-/* Introduction of the articles */
+/* Introduction of the article */
 h3 {
 	margin :10px;
 	font-size: 28px;
@@ -211,8 +202,6 @@ h3 {
 	color: #c60bdd;
 }
 
-/* Page 3: When? and description uses .description3 */
-
 /*Line graph*/
 path.line {
 	fill: none;
@@ -226,7 +215,6 @@ path.line {
 
 .line.focused {
 	stroke-width: 2px;
-	/*stroke-opacity: 100%;*/
 	stroke: #bada55;
 }
 
@@ -298,7 +286,7 @@ ul#yes{
 
 /* Page 5: How Much? */
 #blue {
-	background-color: steelblue;/*#00cc99;*/
+	background-color: steelblue;
 	opacity: 0.8;
 	border-radius: 25px;
 	padding: 10px;
@@ -307,24 +295,20 @@ ul#yes{
 	text-align: center;
 }
 
-/*.verde {
-	color: green;
-}*/
-
 #scat {
 	margin-top: 0px;
 	float: right;
 	width: 55%;
 }
  
-/* Page 6: How many*/
+/* Page 6 */
 .description6 {
 	margin-top: 10px;
 	float:left;
 	width: 45%;
 }
 
-/* Vis 1: Map */  
+/* Map */  
 .area {
 	stroke: grey;
 }
@@ -352,7 +336,7 @@ li.key {
 	display: none; 
 }
 
-/* Vis 3 and 4: Bar graph and scatterplot*/ 
+/* Bar graph and scatterplot*/ 
 .axis path, .axis line {
 	fill: none;            
 	stroke: #000;
@@ -403,6 +387,10 @@ form {
 	text-align: center;
 }
 
+.margin-b {
+	margin-bottom: 20px;
+}
+
 /* Scatterplot */
 .dot {
     stroke: #000;
@@ -428,7 +416,6 @@ form {
 }
 
 .axis text {
-	/*font-family: sans-serif;*/
 	font-size: 11px;
 }
 
@@ -448,12 +435,11 @@ form {
 	color: steelblue;
 }
 
-/* Toogle button */
+/* Toggle */
 .content {
     margin: 0px;
     width: 60%;
     float: right;
-    /*background-color: yellow;*/
 }
 
 .btn {
@@ -514,17 +500,3 @@ form {
 form.right {
 	text-align: right;
 }
-
-
-/*@media screen and (max-width: 1200px) {
-	body {
-		background-color: pink;
-	}
-
-	#intro-left, .description-right {
-		width:100%;
-		float: none;
-	}
-
-	
-}*/

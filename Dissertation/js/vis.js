@@ -1,346 +1,334 @@
-// Visualisation 1: MAP 
+// Map 
 
-	(function(){
-		var boundaries;
-		var recycling_data;
-		var units = "lad";
+(function(){
+	var boundaries;
+	var recycling_data;
+	var units = "lad";
 
-		var width = 450;
-		var height = 450;
+	var width = 500;
+	var height = 500;
 
-	// projection
-		var projection = d3.geo.albers()
-		    .rotate([0, 0]);
+// projection
+	var projection = d3.geo.albers()
+	    .rotate([0, 0]);
 
-		var path = d3.geo.path()
-		    .projection(projection);
+	var path = d3.geo.path()
+	    .projection(projection);
 
-	// create the svg element for drawing onto
-		var svg = d3.select("#map").append("svg")
-		    .attr("width", width)
-		    .attr("height", height);
+// create the svg element for drawing onto
+	var svg = d3.select("#map").append("svg")
+	    .attr("width", width)
+	    .attr("height", height);
 
-	//var tooltip
-	    var toolmap = d3.select("#map").append("div")
-	    	.attr("class", "toolmap");
+//var tooltip
+    var toolmap = d3.select("#map").append("div")
+    	.attr("class", "toolmap");
 
-		var g = svg.append("g");
+	var g = svg.append("g");
 
-		var colour_scale = d3.scale.quantize()
-		   	.range(colorbrewer.GnBu[9]);
+	var colour_scale = d3.scale.quantize()
+	   	.range(colorbrewer.GnBu[9]);
 
-		get_value_by_id = function(lad_id) {
-		    for(var d in recycling_data) {
-		     	if(recycling_data[d].id === lad_id) {
-		     		return +recycling_data[d].value;
-		     	}
-		    }
-		    return undefined;
-			}
-
-		draw_map = function() {
-	// draw our map on the SVG element
-			var max = d3.max(recycling_data, function(d){return +d.value});
-			//console.log(max);
-			colour_scale.domain([0, max]);
-
-			projection
-			    .scale(1)
-			    .translate([0,0]);
-
-	// compute the correct bounds and scaling from the topoJSON
-			var b = path.bounds(topojson.feature(boundaries, boundaries.objects[units]));
-		    var s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
-		    var t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
-			    
-			projection
-		        .scale(s)
-		        .translate(t);
-
-	// add an area for each feature in the topoJSON
-			g.selectAll(".area")
-			    .data(topojson.feature(boundaries, boundaries.objects[units]).features)
-			    .enter().append("path")
-		        .attr("class", "area")
-			    .attr("fill", function(d){ return colour_scale(get_value_by_id(d.id)); })
-			    .attr("id", function(d){return d.id})
-		        .attr("value", function(d){return get_value_by_id(d.id);})
-		        .attr("d", path);
-
-	// add a boundary between areas
-			g.append("path")
-			    .datum(topojson.mesh(boundaries, boundaries.objects[units], function(a, b){ return a !== b }))
-			    .attr('d', path)
-		        .attr('class', 'boundary');			
-
-			var legend = d3.select('#legend')
-			    .append('ul')
-			    	.attr('class', 'list-inline');
-
-			var keys = legend.selectAll('li.key')
-			    .data(colour_scale.range());
-
-			keys.enter()
-				.append('li')
-			    .attr('class', 'key')
-			    .style('border-top-color', String)
-			    .text(function(d) {
-				    var formats = d3.format(".2r")
-				   	var r = colour_scale.invertExtent(d);
-			        return formats(r[0]);
-				});
-
-	// Tooltip
-	        g.selectAll(".area")
-	            .on("mousemove", function(d,i) {
-	            	console.log(d);
-	            	// console.log(this);
-	            toolmap
-	                .classed("hidden", false)
-	                .attr("style", "left:"+ d3.event.pageX +"px; top:"+ d3.event.pageY +"px")
-	                .html("<p>Local Authority: " + d.properties.LAD13NM + 
-	                	"<br>Incidents: " + get_value_by_id(d.id)  +  "</p>")
-	            })
-	            .on("mouseout",  function(d,i) {
-	                toolmap.classed("hidden", true)
-	            });
+	get_value_by_id = function(lad_id) {
+	    for(var d in recycling_data) {
+	     	if(recycling_data[d].id === lad_id) {
+	     		return +recycling_data[d].value;
+	     	}
+	    }
+	    return undefined;
 		}
 
-		queue()
-			.defer(d3.json, "lad.json")
-			.defer(d3.csv, "csv/where.csv")
-			.await(function(error, b, data){
-				boundaries = b;
-				recycling_data = data;
-				draw_map();
-			})
-	}());
+	draw_map = function() {
+// draw our map on the SVG element
+		var max = d3.max(recycling_data, function(d){return +d.value});
+		//console.log(max);
+		colour_scale.domain([0, max]);
 
-// Visualisation 3: Bar graph
+		projection
+		    .scale(1)
+		    .translate([0,0]);
 
-	(function(){
+// compute the correct bounds and scaling from the topoJSON
+		var b = path.bounds(topojson.feature(boundaries, boundaries.objects[units]));
+	    var s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
+	    var t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+		    
+		projection
+	        .scale(s)
+	        .translate(t);
 
-	    var width = 800;
-	    var height = 500;
+// add an area for each feature in the topoJSON
+		g.selectAll(".area")
+		    .data(topojson.feature(boundaries, boundaries.objects[units]).features)
+		    .enter().append("path")
+	        .attr("class", "area")
+		    .attr("fill", function(d){ return colour_scale(get_value_by_id(d.id)); })
+		    .attr("id", function(d){return d.id})
+	        .attr("value", function(d){return get_value_by_id(d.id);})
+	        .attr("d", path);
 
-	    var bottom_padding = 150;
-	    var left_padding = 60;
+// add a boundary between areas
+		g.append("path")
+		    .datum(topojson.mesh(boundaries, boundaries.objects[units], function(a, b){ return a !== b }))
+		    .attr('d', path)
+	        .attr('class', 'boundary');			
 
-	    var transition_duration = 2000;
+		var legend = d3.select('#legend')
+		    .append('ul')
+		    	.attr('class', 'list-inline');
 
-	// the svg element that will hold the visualisation
-	    var svg;
+		var keys = legend.selectAll('li.key')
+		    .data(colour_scale.range());
 
-	// a scale of colours
-	    var colour_scale = d3.scale.quantile().range(colorbrewer.YlGnBu[9]);
+		keys.enter()
+			.append('li')
+		    .attr('class', 'key')
+		    .style('border-top-color', String)
+		    .text(function(d) {
+			    var formats = d3.format(".2r")
+			   	var r = colour_scale.invertExtent(d);
+		        return formats(r[0]);
+			});
 
-	// define x-scale and y-scale
-	    var x_scale = d3.scale.ordinal()
-	    var y_scale = d3.scale.linear()
+// Tooltip
+        g.selectAll(".area")
+            .on("mousemove", function(d,i) {
+            	console.log(d);
+            	// console.log(this);
+            toolmap
+                .classed("hidden", false)
+                .attr("style", "left:"+ d3.event.pageX +"px; top:"+ d3.event.pageY +"px")
+                .html("<p>Local Authority: " + d.properties.LAD13NM + 
+                	"<br>Incidents: " + get_value_by_id(d.id)  +  "</p>")
+            })
+            .on("mouseout",  function(d,i) {
+                toolmap.classed("hidden", true)
+            });
+	}
 
-	// define xaxis
-	    var x_axis = d3.svg.axis()
-	        .scale(x_scale)
-	        .orient("bottom")
-	        //.ticks(8);
+	queue()
+		.defer(d3.json, "lad.json")
+		.defer(d3.csv, "csv/where.csv")
+		.await(function(error, b, data){
+			boundaries = b;
+			recycling_data = data;
+			draw_map();
+		})
+}());
 
-	// define Y axis
-	    var y_axis = d3.svg.axis()
-	        .scale(y_scale)
-	        .orient("left")
-	        //x.ticks(8);
+// Bar graph
 
-		var tip = d3.tip()
-	        .attr('class', 'd3-tip')
-	        .offset([-10, 0])
-	        .html(function(d) {
-	        	return "<span style='color:white'>" + d.Value + "</span>";
-	        })
+(function(){
 
-	    var column;
+    var width = 800;
+    var height = 500;
 
-	    var set_sizes = function() {
-	       	var w = window,
-	            d = document,
-	            e = d.documentElement,
-	            g = d.getElementById("bar-graph"),
-	            x = g.clientWidth;
-	            y = g.clientHeight;
-	            
-	        width = x;
-	        height = y;
-	    }
+    var bottom_padding = 150;
+    var left_padding = 60;
 
-	    var init_plot = function() {
+    var transition_duration = 2000;
 
-	        x_scale.rangeRoundBands([left_padding, width-left_padding], 0.25);
-	        y_scale.range([height-bottom_padding, 0]);
+// the svg element that will hold the visualisation
+    var svg;
 
-	        svg = d3.select("#bar-graph")
-	            .append("svg")
-	            .attr("id", "bar_chart")
-	            .attr("height", height)
-	            .attr("width", width)
+// a scale of colours
+    var colour_scale = d3.scale.quantile().range(colorbrewer.YlGnBu[9]);
 
-	        svg.append("rect")
-	            .attr("id","center")
-	            .attr("height", 500)
-	   	        .attr("width", 600) // ?
-	            .attr("fill", "white");
+// define x-scale and y-scale
+    var x_scale = d3.scale.ordinal()
+    var y_scale = d3.scale.linear()
 
-	           // .on("click", update_plot);
+// define xaxis
+    var x_axis = d3.svg.axis()
+        .scale(x_scale)
+        .orient("bottom")
+        //.ticks(8);
 
-	        svg.call(tip); 
+// define Y axis
+    var y_axis = d3.svg.axis()
+        .scale(y_scale)
+        .orient("left")
+        //x.ticks(8);
 
-	        svg.append("g")
-	            .attr("class", "x axis bar_chart")
-	            .attr("transform", "translate(0," + (height - bottom_padding) + ")")
-	            .call(x_axis)
+	var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        	return "<span style='color:white'>" + d.Value + "</span>";
+        })
+
+    var column;
+
+    var set_sizes = function() {
+       	var w = window,
+            d = document,
+            e = d.documentElement,
+            g = d.getElementById("bar-graph"),
+            x = g.clientWidth;
+            y = g.clientHeight;
+            
+        width = x;
+        height = y;
+    }
+
+    var init_plot = function() {
+
+        x_scale.rangeRoundBands([left_padding, width-left_padding], 0.25);
+        y_scale.range([height-bottom_padding, 0]);
+
+        svg = d3.select("#bar-graph")
+            .append("svg")
+            .attr("id", "bar_chart")
+            .attr("height", height)
+            .attr("width", width)
+
+        svg.append("rect")
+            .attr("id","center")
+            .attr("height", 500)
+   	        .attr("width", 600)
+            .attr("fill", "white");
+           // .on("click", update_plot);
+
+        svg.call(tip); 
+
+        svg.append("g")
+            .attr("class", "x axis bar_chart")
+            .attr("transform", "translate(0," + (height - bottom_padding) + ")")
+            .call(x_axis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-10")
+            .attr("dy", "-5")
+            .attr("transform", "rotate(-40)" )
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(" + left_padding + ",0)")
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", (-left_padding/3)*2)
+            .attr("x", -(height-bottom_padding)/2)
+            .style("text-anchor", "middle")
+            //.text("Number of incidents")
+            .style("font-size", 12);
+    }
+
+    var draw_plot = function(year) {
+		d3.csv('csv/material' + year + '.csv', function(data) {
+            	set_sizes();
+
+            data.forEach(function(d) {
+			    d.Value = +d.Value;
+			});
+
+			console.log(data);
+
+            var max_value = d3.max(data, function(d){ return +d.Value; });
+
+            x_scale.domain(data.map(function(d) { return d.Material; }));
+       	    y_scale.domain([0, max_value]);
+            colour_scale.domain([0, max_value]);
+
+            var bars = d3.select("#bar_chart")
+                .selectAll(".bar")
+                .data(data);            
+
+            bars
+                .enter()
+                .append("rect")
+                .attr("x", function(d){ return x_scale(d.Material); })
+                .attr("y", function(d){ return height - bottom_padding; })
+                .attr("width", x_scale.rangeBand())
+                .attr("height", 0)
+                .attr("fill", function(d) {
+                    return colour_scale(+d.Value)
+                })
+                .attr('class', 'bar')
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide);
+
+            bars      
+                .attr("y", function(d){ 
+                	return y_scale(+d.Value); })
+                .attr("height", function(d){ return height - y_scale(+d.Value) - bottom_padding })
+                .attr("fill", function(d) {
+                    return colour_scale(+d.Value);
+                });
+
+            bars
+                .exit()
+                .transition()
+                .duration(transition_duration)
+                .attr("x", width)
+                .remove();
+
+            // create x-axis
+            svg.select(".x.axis.bar_chart")
+                .call(x_axis)
 	            .selectAll("text")
 	            .style("text-anchor", "end")
 	            .attr("dx", "-10")
 	            .attr("dy", "-5")
-	            .attr("transform", "rotate(-40)" )
+	            .attr("transform", "rotate(-50)" );
+                
+  			// create y-axis
+            svg.select(".y.axis")
+                .transition()
+                .duration(transition_duration)
+                .call(y_axis);
 
-	        svg.append("g")
-	            .attr("class", "y axis")
-	            .attr("transform", "translate(" + left_padding + ",0)")
-	            .append("text")
-	            .attr("transform", "rotate(-90)")
-	            .attr("y", (-left_padding/3)*2)
-	            .attr("x", -(height-bottom_padding)/2)
-	            .style("text-anchor", "middle")
-	            //.text("Number of incidents")
-	            .style("font-size", 12);
-	    }
+         // To Sort 
+			function change() {
+			    var x0 = x_scale.domain(data.sort(d3.select('input')[0][0].checked
+			        ? function(a, b) { return b.Value - a.Value; }
+			        : function(a, b) { return d3.ascending(a.Material, b.Material); })
+			        .map(function(d) { return d.Material; }))
+			        .copy();
 
-	    var draw_plot = function(year) {
-			d3.csv('csv/material' + year + '.csv', function(data) {
-	            	set_sizes();
+			    svg.selectAll(".bar")
+			        .sort(function(a, b) { return x0(a.Material) - x0(b.Material); });
 
-	            data.forEach(function(d) {
-				    d.Value = +d.Value;
-				});
+			    svg.selectAll(".bar")
+			    	.transition()
+			    	.duration(750)
+			        .attr("x", function(d) { return x0(d.Material); });
 
-				console.log(data);
-
-	            var max_value = d3.max(data, function(d){ return +d.Value; });
-
-	            x_scale.domain(data.map(function(d) { return d.Material; }));
-	       	    y_scale.domain([0, max_value]);
-	            colour_scale.domain([0, max_value]);
-
-	            var bars = d3.select("#bar_chart")
-	                .selectAll(".bar")
-	                .data(data);            
-
-	            bars
-	                .enter()
-	                .append("rect")
-	                .attr("x", function(d){ return x_scale(d.Material); })
-	                .attr("y", function(d){ return height - bottom_padding; })
-	                .attr("width", x_scale.rangeBand())
-	                .attr("height", 0)
-	                .attr("fill", function(d) {
-	                    return colour_scale(+d.Value)
-	                })
-	                .attr('class', 'bar')
-	                .on('mouseover', tip.show)
-	                .on('mouseout', tip.hide);
-
-	            bars      
-	                // .transition()
-	                // .duration(transition_duration)
-	                .attr("y", function(d){ 
-	                	return y_scale(+d.Value); })
-	                .attr("height", function(d){ return height - y_scale(+d.Value) - bottom_padding })
-	                .attr("fill", function(d) {
-	                    return colour_scale(+d.Value);
-	                });
-
-	            bars
-	                .exit()
-	                .transition()
-	                .duration(transition_duration)
-	                .attr("x", width)
-	                .remove();
-
-	            // create x-axis
-	            svg.select(".x.axis.bar_chart")
-	                .call(x_axis)
-		            .selectAll("text")
+			    svg.select(".x.axis.bar_chart")
+			    	.transition()
+			    	.duration(750)
+			        .call(x_axis)
+			       	.selectAll("text")
 		            .style("text-anchor", "end")
 		            .attr("dx", "-10")
 		            .attr("dy", "-5")
-		            .attr("transform", "rotate(-50)" );
-	                
-	  			// create y-axis
-	            svg.select(".y.axis")
-	                .transition()
-	                .duration(transition_duration)
-	                .call(y_axis);
+			}
+			d3.select("input").on("change", change);
+            change();
+        });
+    }
 
-				// var sortTimeout = setTimeout(function() {
+    var init = function() {
+		console.log('r')
+        set_sizes();
+        init_plot();
+        draw_plot(2014);
+        d3.select('#year_select')
+            .on('change', function() {
+                var selected = this.options[this.selectedIndex].value;
+                draw_plot(selected);
 
-				// 	d3.select("input").property("checked", false).each(change);
-				// }, 2000);
-				function change() {
-				
-					//clearTimeout(sortTimeout);
+            });
+        	
+	}();
+}());
 
-				    // Copy-on-write since tweens are evaluated after a delay.
-				    var x0 = x_scale.domain(data.sort(d3.select('input')[0][0].checked
-				        ? function(a, b) { return b.Value - a.Value; }
-				        : function(a, b) { return d3.ascending(a.Material, b.Material); })
-				        .map(function(d) { return d.Material; }))
-				        .copy();
+// Scatterplot 
 
-				    svg.selectAll(".bar")
-				        .sort(function(a, b) { return x0(a.Material) - x0(b.Material); });
-
-				    svg.selectAll(".bar")
-				    	.transition()
-				    	.duration(750)
-				        //.delay(delay)
-				        .attr("x", function(d) { return x0(d.Material); });
-
-				    svg.select(".x.axis.bar_chart")
-				    	.transition()
-				    	.duration(750)
-				        .call(x_axis)
-				       	.selectAll("text")
-			            .style("text-anchor", "end")
-			            .attr("dx", "-10")
-			            .attr("dy", "-5")
-				      // .selectAll("g")
-				      //   .delay(delay);
-				}
-				d3.select("input").on("change", change);
-	            change();
-	        });
-	    }
-
-	    var init = function() {
-			console.log('r')
-	        set_sizes();
-	        init_plot();
-	        draw_plot(2014);
-	        d3.select('#year_select')
-	            .on('change', function() {
-	                var selected = this.options[this.selectedIndex].value;
-	                draw_plot(selected);
-
-	            });
-	        	
-	    }();
-	}());
-
-// SCATTERPLOT 
 (function(){
 
     var margin = {top: 30, right: 20, bottom: 20, left: 70},
         width = 550 - margin.left - margin.right,
-        height = 450 - margin.top - margin.bottom;
+        height = 500 - margin.top - margin.bottom;
 
     // setup x 
     var xValue = function(d) { return d.Year;}, 
@@ -464,12 +452,12 @@
     });
 }());
 
-// Line graph 
+// Line graph 1
 
 (function(){
 	//Dimensions and padding
-	var fullwidth = 650;
-	var fullheight = 450;
+	var fullwidth = 700;
+	var fullheight = 470;
 	var margin = {top: 10, right: 100, bottom: 40, left:100};
 
 	var width = fullwidth - margin.left - margin.right;
@@ -686,12 +674,12 @@
 	}); 
 }());
 
-// Line graph top 3 
+// Line graph 2
 
 (function(){
 	//Dimensions and padding
-	var fullwidth = 650;
-	var fullheight = 450;
+	var fullwidth = 700;
+	var fullheight = 470;
 	var margin = {top: 10, right: 100, bottom: 40, left:100};
 
 	var width = fullwidth - margin.left - margin.right;
@@ -908,118 +896,119 @@
 	}); 
 }()); 
 
-// Pie 
+// Pie  
+
 (function(){
-var pie = new d3pie("pieChart", {
-	"header": {
-		"title": {
-			"fontSize": 24,
-			"font": "verdana"
+	var pie = new d3pie("pieChart", {
+		"header": {
+			"title": {
+				"fontSize": 24,
+				"font": "verdana"
+			},
+			"subtitle": {
+				"color": "#999999",
+				"fontSize": 12,
+				"font": "open sans"
+			},
+			"titleSubtitlePadding": null
 		},
-		"subtitle": {
+		"footer": {
 			"color": "#999999",
-			"fontSize": 12,
-			"font": "open sans"
+			"fontSize": 10,
+			"font": "open sans",
+			"location": "bottom-left"
 		},
-		"titleSubtitlePadding": null
-	},
-	"footer": {
-		"color": "#999999",
-		"fontSize": 10,
-		"font": "open sans",
-		"location": "bottom-left"
-	},
-	"size": {
-		"canvasHeight": 300,
-		"canvasWidth": 400,
-		"pieOuterRadius": "100%"
-	},
-	"data": {
-		"sortOrder": "value-desc",
-		"content": [
-			{
-				"label": "Fine",
-				"value": 85,
-				"color": "#2484c1"
+		"size": {
+			"canvasHeight": 300,
+			"canvasWidth": 400,
+			"pieOuterRadius": "100%"
+		},
+		"data": {
+			"sortOrder": "value-desc",
+			"content": [
+				{
+					"label": "Fine",
+					"value": 85,
+					"color": "#2484c1"
+				},
+				{
+					"label": "Case Lost",
+					"value": 1,
+					"color": "#bf273e"
+				},
+				{
+					"label": "Community Service",
+					"value": 2,
+					"color": "#df9b41"
+				},
+				{
+					"label": "Discharge",
+					"value": 14,
+					"color": "#248838"
+				},
+				{
+					"label": "Other (successful)",
+					"value": 3,
+					"color": "#956412"
+				}
+			]
+		},
+		"labels": {
+			"outer": {
+				"pieDistance": 20
 			},
-			{
-				"label": "Case Lost",
-				"value": 1,
-				"color": "#bf273e"
+			"inner": {
+				"hideWhenLessThanPercentage": 4
 			},
-			{
-				"label": "Community Service",
-				"value": 2,
-				"color": "#df9b41"
+			"mainLabel": {
+				"fontSize": 12
 			},
-			{
-				"label": "Discharge",
-				"value": 14,
-				"color": "#248838"
+			"percentage": {
+				"color": "#ffffff",
+				"decimalPlaces": 0
 			},
-			{
-				"label": "Other (successful)",
-				"value": 3,
-				"color": "#956412"
+			"value": {
+				"color": "#adadad",
+				"fontSize": 11
+			},
+			"lines": {
+				"enabled": true,
+				"style": "straight",
+				"color": "segment"
+			},
+			"truncation": {
+				"enabled": true
 			}
-		]
-	},
-	"labels": {
-		"outer": {
-			"pieDistance": 20
 		},
-		"inner": {
-			"hideWhenLessThanPercentage": 4
-		},
-		"mainLabel": {
-			"fontSize": 12
-		},
-		"percentage": {
-			"color": "#ffffff",
-			"decimalPlaces": 0
-		},
-		"value": {
-			"color": "#adadad",
-			"fontSize": 11
-		},
-		"lines": {
+		"tooltips": {
 			"enabled": true,
-			"style": "straight",
-			"color": "segment"
+			"type": "placeholder",
+			"string": "{label}: {value}",
+			"styles": {
+				"backgroundColor": "white",
+				"backgroundOpacity": 0.8,
+				"fontSize": 14,
+				"padding": 5,
+				"borderRadius": 0,
+				"borderColor": "black"
+			},
 		},
-		"truncation": {
-			"enabled": true
-		}
-	},
-	"tooltips": {
-		"enabled": true,
-		"type": "placeholder",
-		"string": "{label}: {value}",
-		"styles": {
-			"backgroundColor": "white",
-			"backgroundOpacity": 0.8,
-			"fontSize": 14,
-			"padding": 5,
-			"borderRadius": 0,
-			"borderColor": "black"
+		"effects": {
+			"pullOutSegmentOnClick": {
+				"effect": "linear",
+				"speed": 400,
+				"size": 8
+			}
 		},
-	},
-	"effects": {
-		"pullOutSegmentOnClick": {
-			"effect": "linear",
-			"speed": 400,
-			"size": 8
-		}
-	},
-	"misc": {
-		"gradient": {
-			"enabled": true,
-			"percentage": 100
+		"misc": {
+			"gradient": {
+				"enabled": true,
+				"percentage": 100
+			},
+			"canvasPadding": {
+				"right": 0
+			}
 		},
-		"canvasPadding": {
-			"right": 0
-		}
-	},
-	"callbacks": {}
-});
+		"callbacks": {}
+	});
 }()); 
