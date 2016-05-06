@@ -188,7 +188,7 @@
 	   	        .attr("width", 600) // ?
 	            .attr("fill", "white");
 
-	            //.on("click", update_plot);
+	           // .on("click", update_plot);
 
 	        svg.call(tip); 
 
@@ -215,13 +215,14 @@
 	    }
 
 	    var draw_plot = function(year) {
-			 var ischecked = false;
 			d3.csv('csv/material' + year + '.csv', function(data) {
 	            	set_sizes();
 
 	            data.forEach(function(d) {
 				    d.Value = +d.Value;
 				});
+
+				console.log(data);
 
 	            var max_value = d3.max(data, function(d){ return +d.Value; });
 
@@ -234,7 +235,6 @@
 	                .data(data);            
 
 	            bars
-	            	.data(data)
 	                .enter()
 	                .append("rect")
 	                .attr("x", function(d){ return x_scale(d.Material); })
@@ -280,19 +280,16 @@
 	                .duration(transition_duration)
 	                .call(y_axis);
 
-	        	   	d3.select("input").on("change", change);
-	        	
 				// var sortTimeout = setTimeout(function() {
 
 				// 	d3.select("input").property("checked", false).each(change);
 				// }, 2000);
-
 				function change() {
 				
 					//clearTimeout(sortTimeout);
 
 				    // Copy-on-write since tweens are evaluated after a delay.
-				    var x0 = x_scale.domain(data.sort(this.checked
+				    var x0 = x_scale.domain(data.sort(d3.select('input')[0][0].checked
 				        ? function(a, b) { return b.Value - a.Value; }
 				        : function(a, b) { return d3.ascending(a.Material, b.Material); })
 				        .map(function(d) { return d.Material; }))
@@ -301,19 +298,25 @@
 				    svg.selectAll(".bar")
 				        .sort(function(a, b) { return x0(a.Material) - x0(b.Material); });
 
-				    var transition = svg.transition().duration(750),
-				        delay = function(d, i) { return i * 50; };
-
-				    transition.selectAll(".bar")
-				        .delay(delay)
+				    svg.selectAll(".bar")
+				    	.transition()
+				    	.duration(750)
+				        //.delay(delay)
 				        .attr("x", function(d) { return x0(d.Material); });
 
-				    transition.select(".x_axis")
+				    svg.select(".x.axis.bar_chart")
+				    	.transition()
+				    	.duration(750)
 				        .call(x_axis)
-				      .selectAll("g")
-				        .delay(delay);
+				       	.selectAll("text")
+			            .style("text-anchor", "end")
+			            .attr("dx", "-10")
+			            .attr("dy", "-5")
+				      // .selectAll("g")
+				      //   .delay(delay);
 				}
-
+				d3.select("input").on("change", change);
+	            change();
 	        });
 	    }
 
@@ -327,9 +330,9 @@
 	                var selected = this.options[this.selectedIndex].value;
 	                draw_plot(selected);
 
-	            })
+	            });
+	        	
 	    }();
-draw_plot(2014);
 	}());
 
 // SCATTERPLOT 
@@ -379,6 +382,8 @@ draw_plot(2014);
     xScale.domain(["2006-07", "2007-08", "2008-09", "2009-10", "2010-11", "2011-12", "2012-13", "2013-14", "2014-15"]);
     yScale.domain([0, d3.max(data, yValue)+1]);
 
+    // yAxis.tickFormat(d3.format('&pound;'));
+
     // x-axis
     svg.append("g")
         .attr("class", "x axis")
@@ -401,7 +406,7 @@ draw_plot(2014);
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("");
+        .text("Pounds (£)");
 
     // draw dots
     svg.selectAll(".dot")
