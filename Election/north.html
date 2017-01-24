@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Cardiff North</title>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css" rel="stylesheet" data-semver="3.0.1" data-require="normalize@*" />
+    <style>
+
+      body {
+        width: 100%;
+        background-color: #F5F5F5;
+      }
+
+      section{
+        width: 60%;
+        background-color: white;
+        text-align: center;
+        margin: auto;
+      }
+
+
+      #chart {                                                          
+        height: 360px;                                                  
+        position: relative;                                             
+        width: 360px;                                                   
+      } 
+
+      .legend {                                                   
+        font-size: 12px;                                         
+      }    
+
+      rect {                                                      
+        stroke-width: 2;                                          
+      }                          
+
+      .tooltip {                                                        
+        background: #eee;                                               
+        box-shadow: 0 0 5px #999999;                                    
+        color: #333;                                                    
+        display: none;                                                  
+        font-size: 14px; 
+        left: 527px;                                              
+        padding: 10px;                                                  
+        position: absolute;                                             
+        text-align: center;   
+        top: 2573px;                                          
+        width: 200px;                                                    
+        z-index: 10;                                                    
+      } 
+
+      .tooltip2 {                                                        
+        background: #eee;                                               
+        box-shadow: 0 0 5px #999999;                                    
+        color: #333;                                                    
+        display: none;                                                  
+        font-size: 14px; 
+        left: 542px;                                              
+        padding: 10px;                                                  
+        position: absolute;                                             
+        text-align: center;   
+        top: 3025px;                                          
+        width: 170px;                                                    
+        z-index: 10;                                                    
+      } 
+
+      .tooltip3 {                                                        
+        background: #eee;                                               
+        box-shadow: 0 0 5px #999999;                                    
+        color: #333;                                                    
+        display: none;                                                  
+        font-size: 14px; 
+        left: 552px;                                              
+        padding: 10px;                                                  
+        position: absolute;                                             
+        text-align: center;   
+        top: 3440px;                                          
+        width: 150px;                                                    
+        z-index: 10;                                                    
+      } 
+
+      #vis1, #vis2, #vis3 {
+        width: 70%;
+        margin: auto;
+        text-align: center;
+      }
+
+      h1, h2 {
+        text-align: center;
+        margin: auto;
+        padding: 10px;
+      }
+
+      svg {
+        text-align: center;
+      }
+
+      h1{
+        font-size: 28px;
+      }
+
+      h2{
+        font-size: 24px;
+      }
+
+      #candidates {
+        width: 70%;
+        text-align: justify;
+        margin: auto;
+        padding: 5px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #56A5EC;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }      
+    </style>
+
+  </head>
+
+  <body>
+
+    <section>
+
+      <h1>Cardiff North Election 2015</h1>
+      <img src="north.png">
+
+      <p id="candidates">Cardiff North is a borough constituency in the city of Cardiff. It is a marginal seat who returns one MP to the House of Commons of the Parliament of the UK. Over half of it consists of owner-occupied housing. It's "historically" considerated Conversative, but lately it has turned the seat into a national target swing-constituency.
+
+      Last election was won by Jonathan Evans (Conservative), with a majority of just 194.</p>
+
+      <h2>The Candidates</h2>
+
+      <p><a href="https://twitter.com/Craig4CardiffN"><b>CRAIG WILLIAMS </b></a><i>(Conservative)</i></p><p id="candidates">Craig is the local Councillor on Cardiff City Council and Chairman of the Council's Economy and Culture Scrutiny Committee. In addition, he serves as a non executive director of Cardiff Bus and policy advisor to the official opposition on transport, regeneration and European affairs in the National Assembly for Wales.<p>
+      <p><a href="https://twitter.com/Mari_Williams"><b>MARI WILLIAMS</b></a> <i>(Labour)</p><p id="candidates"></i>Born in Cardiff, educated at Whitchurch High School and University College London. She has been the Deputy head in a comprehensive school for several years. She is a teacher, but at the same time, led campaigns on improving local bus services, keeping Whitchurch post office in the village, securing a Green Belt and fighting hard to keep our libraries open.
+      </p>
+      <iframe width="450" height="315" src="https://www.youtube.com/embed/8O7tjyIiTTQ" frameborder="0" allowfullscreen></iframe>
+      <p><a href="https://twitter.com/elizabethcdf"><b>ELIZABETH CLARK</b></a><i>(Liberal Democrat)</i></p><p id="candidates">After graduating from Reading University Elizabeth, she qualified as a human resource manager at the University of South Wales and as a teacher at Cardiff Metropolitan University. While working as the Governing Body Development Manager for Cardiff Council, she supported most of the schools in Cardiff North. Having worked for central and local government, Elizabeth believes in the importance of good public services.
+      As a Cardiff City Councillor, Elizabeth is a strong champion for local people. She is proud to have voted alongside all the Liberal Democrat councillors to save many libraries from the Labour Council closure proposals. She is currently fighting against proposals to reduce the frequency of black bin collections or the size of the bins.</p>
+
+      <p><a href="https://twitter.com/ethanrwilkinson"><b>ETHAN WILKINSON</b></a> <i>(UKIP)</i></p><p id="candidates">He is 24 years old, married and soon father of two children. He is currently an undergraduate student at Cardiff University, studying Italian and Spanish. He is also a practising Latter-day Saint (Mormon).</p>
+      
+      <p><a href="https://twitter.com/ruthosner"><b>RUTH OSNER</b></a> <i>(Green)</i></p><p id="candidates">Ruth has successfully completed the first level of an undergraduate degree in International Studies (Environment) with the Open University, despite suffering from severe dyslexia. In addition to working part time at a local supermarket, Ruth volunteers, as a receptionist with a non-profit making organisation, helping people in recovery from drug, alcohol or gambling addictions, and occasionally volunteers with Good Neighbours of Cardiff North, shopping for local housebound residents on her bicycle. She lives with her husband and two teenage children.</p>
+      
+      <p><a href="https://twitter.com/elinmwj"><b>ELIN WALKER JONES</b></a> <i>(Plaid Cymru)</i></p><p id="candidates">She has spent 25 years working for the NHS with children with learning disabilities and autism, as a clinical psychologist, and also have experience of working in higher education. She is currently a county Councillor and the Autism champion for Gwynedd, bridging the gap between the Autism community and Gwynedd Council.<br>
+      "The people of Cardiff North, and indeed Wales, need a strong voice in Westminster. Plaid Cymru is the only party that puts the people of Wales first. Plaid Cymru does not support the Austerity agenda, and is calling financial parity with Scotland, which would give Wales an additional £1.2 billion. Think of the hospitals, schools and transport links that you could build with that money – think of the jobs you create! Plaid Cymru is the party for the people of Wales, as it is not answerable to any of the Westminster parties, who put the interests of the wealthy South East first."</p>
+      
+      <p><b>JEFF GREEN</b> <i>(Christian)</i></p><p id="candidates">Hotelier. Jeff Green is standing in Cardiff North as a Christian Party "Proclaiming Christ's Lordship" candidate. Party leader says he will focuse on issues such as the sanctity of life, traditional marriage and British constitutional law.</p>
+      
+      <p><a href="https://twitter.com/shaunmjenkins"><b>SHAUN JENKINS</b></a> <i>(Alter Change)</i></p><p id="candidates">26 years old and, after four year work, he has finally officially formed his own political party. The core principles of Alter Change? Shaun stated: “We’re a moral, ambitious and progressive party; we’re campaigning tirelessly to ensure that families are valued, young people are given opportunities to succeed, the economy is robust and stable and society is a safer, moral better place.” His polocies include: banning bailiffs, cheaper, fairer car insurance and better quality affordable housing</p>
+
+      <h2>Past results...</h2>    
+
+        <p>Mouse over the pie to get further information!</p> 
+
+        <div id="vis1">
+          <h2>2010</h2>
+        </div>
+
+        <div id="vis2">
+          <h2>2005</h2>
+        </div>
+
+        <div id="vis3">
+          <h2>2001</h2>
+        </div>
+      </section>
+
+      <script data-require="d3@*" data-semver="3.4.6" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.6/d3.min.js"></script>
+      <script>
+
+  (function(){
+
+        (function(d3) {
+          'use strict';
+
+          var width = 430;
+          var height = 430;
+          var radius = Math.min(width, height) / 2;
+          var donutWidth = 85;
+          var legendRectSize = 18;
+          var legendSpacing = 4;
+
+          var color = d3.scale.ordinal()
+            .range(["#377eb8","#e41a1c","#fec44f","#2ca25f","#984ea3", "#74c476","#8c96c6"]);
+
+          var svg = d3.select('#vis1')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', 'translate(' + (width / 2) + 
+              ',' + (height / 2) + ')');
+
+          var arc = d3.svg.arc()
+            .innerRadius(radius - donutWidth)
+            .outerRadius(radius);
+
+          var pie = d3.layout.pie()
+            .value(function(d) { return d.count; })
+            .sort(null);
+
+          var tooltip = d3.select('#vis1')                               
+            .append('div')                                                
+            .attr('class', 'tooltip');                                    
+                        
+          tooltip.append('p')                                           
+            .attr('class', 'label')
+            .style("font-weight", "bold");                                      
+               
+          tooltip.append('p')                                           
+            .attr('class', 'count');     
+
+          tooltip.append('p')                                           
+            .attr('class', 'candidate');                                
+
+          d3.csv('north2010.csv', function(error, dataset) {
+            dataset.forEach(function(d) {
+              d.count = +d.count;
+            });
+
+            var path = svg.selectAll('path')
+              .data(pie(dataset))
+              .enter()
+              .append('path')
+              .attr('d', arc)
+              .attr('fill', function(d, i) { 
+                return color(d.data.label); 
+              });
+
+            path.on('mouseover', function(d) {                            
+              var total = d3.sum(dataset.map(function(d) {                
+                return d.count;                                           
+              }));                                                        
+              var percent = Math.round(1000 * d.data.count / total) / 10;              
+              tooltip.select('.count').html(d.data.count + '%');  
+              tooltip.select('.label').html(d.data.label);
+              tooltip.select('.candidate').html(d.data.candidate);           
+              tooltip.style('display', 'block');                          
+            });                                                           
+            
+            path.on('mouseout', function() {                              
+              tooltip.style('display', 'none');                          
+            });                                                           
+              
+            var legend = svg.selectAll('.legend')
+              .data(color.domain())
+              .enter()
+              .append('g')
+              .attr('class', 'legend')
+              .attr('transform', function(d, i) {
+                var height = legendRectSize + legendSpacing;
+                var offset =  height * color.domain().length / 2;
+                var horz = -2 * legendRectSize;
+                var vert = i * height - offset;
+                return 'translate(' + horz + ',' + vert + ')';
+              });
+
+            legend.append('rect')
+              .attr('width', legendRectSize)
+              .attr('height', legendRectSize)                                   
+              .style('fill', color)
+              .style('stroke', color);
+              
+            legend.append('text')
+              .attr('x', legendRectSize + legendSpacing)
+              .attr('y', legendRectSize - legendSpacing)
+              .text(function(d) { return d; })
+              .style('font-size', 16);
+
+          });
+
+        })(window.d3);
+
+  }());
+
+  (function(){
+
+        (function(d3) {
+          'use strict';
+
+          var width = 375;
+          var height = 375;
+          var radius = Math.min(width, height) / 2;
+          var donutWidth = 70;
+          var legendRectSize = 18;
+          var legendSpacing = 4;
+
+          var color = d3.scale.ordinal()
+            .range(["#377eb8","#e41a1c","#fec44f","#2ca25f","#984ea3", "#74c476","pink"]);
+
+          var svg = d3.select('#vis2')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', 'translate(' + (width / 2) + 
+              ',' + (height / 2) + ')');
+
+          var arc = d3.svg.arc()
+            .innerRadius(radius - donutWidth)
+            .outerRadius(radius);
+
+          var pie = d3.layout.pie()
+            .value(function(d) { return d.count; })
+            .sort(null);
+
+          var tooltip2 = d3.select('#vis2')                               
+            .append('div')                                                
+            .attr('class', 'tooltip2');                                    
+                        
+          tooltip2.append('p')                                           
+            .attr('class', 'label')
+            .style("font-weight", "bold");                                      
+               
+          tooltip2.append('p')                                           
+            .attr('class', 'count'); 
+
+          tooltip2.append('p')                                           
+            .attr('class', 'candidate');                                   
+
+          d3.csv('north2005.csv', function(error, dataset) {
+            dataset.forEach(function(d) {
+              d.count = +d.count;
+            });
+
+            var path = svg.selectAll('path')
+              .data(pie(dataset))
+              .enter()
+              .append('path')
+              .attr('d', arc)
+              .attr('fill', function(d, i) { 
+                return color(d.data.label); 
+              });
+
+            path.on('mouseover', function(d) {                            
+              var total = d3.sum(dataset.map(function(d) {                
+                return d.count;                                           
+              }));                                                        
+              var percent = Math.round(1000 * d.data.count / total) / 10;              
+              tooltip2.select('.count').html(d.data.count + '%');  
+              tooltip2.select('.label').html(d.data.label);
+              tooltip2.select('.candidate').html(d.data.candidate);          
+              tooltip2.style('display', 'block');                          
+            });                                                           
+            
+            path.on('mouseout', function() {                              
+              tooltip2.style('display', 'none');                          
+            });                                                           
+              
+            var legend = svg.selectAll('.legend')
+              .data(color.domain())
+              .enter()
+              .append('g')
+              .attr('class', 'legend')
+              .attr('transform', function(d, i) {
+                var height = legendRectSize + legendSpacing;
+                var offset =  height * color.domain().length / 2;
+                var horz = -2 * legendRectSize;
+                var vert = i * height - offset;
+                return 'translate(' + horz + ',' + vert + ')';
+              });
+
+            legend.append('rect')
+              .attr('width', legendRectSize)
+              .attr('height', legendRectSize)                                   
+              .style('fill', color)
+              .style('stroke', color);
+              
+            legend.append('text')
+              .attr('x', legendRectSize + legendSpacing)
+              .attr('y', legendRectSize - legendSpacing)
+              .text(function(d) { return d; })
+              .style('font-size', 14);
+
+          });
+
+        })(window.d3);
+
+  }());
+
+  (function(){
+
+        (function(d3) {
+          'use strict';
+
+          var width = 350;
+          var height = 350;
+          var radius = Math.min(width, height) / 2;
+          var donutWidth = 65;
+          var legendRectSize = 18;
+          var legendSpacing = 4;
+
+          var color = d3.scale.ordinal()
+            .range(["#377eb8","#e41a1c","#fec44f","#2ca25f","#984ea3", "#74c476","pink"]);
+
+          var svg = d3.select('#vis3')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', 'translate(' + (width / 2) + 
+              ',' + (height / 2) + ')');
+
+          var arc = d3.svg.arc()
+            .innerRadius(radius - donutWidth)
+            .outerRadius(radius);
+
+          var pie = d3.layout.pie()
+            .value(function(d) { return d.count; })
+            .sort(null);
+
+          var tooltip3 = d3.select('#vis3')                               
+            .append('div')                                                
+            .attr('class', 'tooltip3');                                    
+                        
+          tooltip3.append('p')                                           
+            .attr('class', 'label')
+            .style("font-weight", "bold");                                      
+               
+          tooltip3.append('p')                                           
+            .attr('class', 'count'); 
+
+          tooltip3.append('p')                                           
+            .attr('class', 'candidate');                                   
+
+          d3.csv('north2001.csv', function(error, dataset) {
+            dataset.forEach(function(d) {
+              d.count = +d.count;
+            });
+
+            var path = svg.selectAll('path')
+              .data(pie(dataset))
+              .enter()
+              .append('path')
+              .attr('d', arc)
+              .attr('fill', function(d, i) { 
+                return color(d.data.label); 
+              });
+
+            path.on('mouseover', function(d) {                            
+              var total = d3.sum(dataset.map(function(d) {                
+                return d.count;                                           
+              }));                                                        
+              var percent = Math.round(1000 * d.data.count / total) / 10;              
+              tooltip3.select('.count').html(d.data.count + '%');  
+              tooltip3.select('.label').html(d.data.label);
+              tooltip3.select('.candidate').html(d.data.candidate);          
+              tooltip3.style('display', 'block');                          
+            });                                                           
+            
+            path.on('mouseout', function() {                              
+              tooltip3.style('display', 'none');                          
+            });                                                           
+              
+            var legend = svg.selectAll('.legend')
+              .data(color.domain())
+              .enter()
+              .append('g')
+              .attr('class', 'legend')
+              .attr('transform', function(d, i) {
+                var height = legendRectSize + legendSpacing;
+                var offset =  height * color.domain().length / 2;
+                var horz = -2 * legendRectSize;
+                var vert = i * height - offset;
+                return 'translate(' + horz + ',' + vert + ')';
+              });
+
+            legend.append('rect')
+              .attr('width', legendRectSize)
+              .attr('height', legendRectSize)                                   
+              .style('fill', color)
+              .style('stroke', color);
+              
+            legend.append('text')
+              .attr('x', legendRectSize + legendSpacing)
+              .attr('y', legendRectSize - legendSpacing)
+              .text(function(d) { return d; })
+              .style('font-size', 14);
+
+          });
+
+        })(window.d3);
+
+  }());
+
+
+      </script>
+  </body>
+
+</html>

@@ -1,0 +1,502 @@
+/* Menu style */
+#menu li {
+	display:inline-block;
+	margin: 10px;
+	color: #000;
+	background:#fff;
+	background: rgba(255,255,255, 0.5);
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+#menu li.active {
+	background:#666;
+	background: rgba(0,0,0, 0.5);
+	color: #fff;
+}
+
+#menu li a {
+	text-decoration:none;
+	color: #000;
+}
+
+#menu li.active a:hover {
+	color: #000;
+}
+
+#menu li:hover {
+	background: rgba(255,255,255, 0.8);
+}
+
+#menu li a,
+#menu li.active a {
+	padding: 9px 18px;
+	display:block;
+}
+
+#menu li.active a {
+	color: #fff;
+}
+
+#menu {
+	position:fixed;
+	top:0;
+	left:0;
+	height: 40px;
+	z-index: 70;
+	width: 100%;
+	padding: 0;
+	margin:0;
+}
+
+/* Main style */
+body {
+	font-family: "Times New Roman";
+	color: black;
+}
+
+.section {
+	text-align:center;
+}
+
+.page {
+	width: 90%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+p {
+	line-height: 1.5;
+	text-align: justify;
+	font-size: 18px;
+}
+
+.quote {
+	font-size: 17px;
+}
+
+.center {
+	text-align: center;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+a {
+	text-decoration: none;
+	font-weight: lighter;
+	color: #C00000 ;
+s}
+
+a:hover {
+	text-decoration: underline;
+	/*color: black;*/
+}
+
+/* Used for the "Data source" section*/
+.right-side {
+ 	text-align: right;
+ 	width: 90%;
+	font-style: italic;
+	font-size: 12px;
+	margin-bottom: 0px;
+}
+
+.note {
+	text-align: center;
+	font-style: italic;
+	font-size: 12px;
+	color: grey;
+}
+	
+img {
+	border-radius: 25px;
+}
+
+#gif {
+	border-radius: 0px;
+	width: 55%;
+}
+
+h1 {
+	font-size: 20px;
+}
+
+h1#title{
+	font-size: 90px;
+	font-weight: normal;
+	margin: 0;;
+	color:rgba(0,0,0,0.8)
+}
+
+h2#subtitle{
+	margin-top: 0px; 
+	margin-bottom: 20px;
+	font-size: 40px;
+	font-weight: normal;
+	color:rgba(0,0,0,0.7);
+}
+
+/* Title visualisation */
+h4 {
+	font-weight: bold;
+	margin: 15px;
+}
+
+/* Introduction of the article */
+h3 {
+	margin :10px;
+	font-size: 28px;
+	font-weight: normal;
+	text-align: center;
+}
+
+/* Page 1: Intro */
+#intro-left {
+	width: 45%;
+	float: left;
+}
+
+.description-right {
+	width: 45%;
+	float: right;
+	padding-right: 55px;
+}
+
+/* Dot menu */
+.fp-slidesNav.bottom{
+	bottom: 25px;
+}
+
+/* Page 2: Where? - Map */
+
+.description1 {
+  	margin-top: 0px;
+	float: left;
+	width: 45%;
+	text-align: justify;
+}
+
+#map {
+	width: 50%;
+	height: 100%;
+	float:right;
+	padding-right: 50px;
+	margin-top: 10px;
+}
+
+.toolmap {
+	position: absolute;
+	z-index: 10;
+}
+
+
+.toolmap p {
+	background-color: white;
+	border: gray 1px solid;
+	padding: 5px;
+	max-width: 200px;
+	text-align: left;
+	font-size: 14px;
+	color: #c60bdd;
+}
+
+/*Line graph*/
+path.line {
+	fill: none;
+	stroke: #55bada;
+	stroke-width: 1px;
+}
+
+.unfocused {
+	opacity: .7;
+}
+
+.line.focused {
+	stroke-width: 2px;
+	stroke: #bada55;
+}
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: black;
+	stroke-width: 1px;
+}
+
+.axis text {
+	font-family: "BentonSans"
+	font-size: 11px;
+}
+
+text.linelabel {
+	font-size: 9pt;
+	color: gray;
+}
+
+circle {
+	fill: #c60bdd;
+}
+
+.tooltip {
+	position: absolute;
+	z-index: 10;
+}
+
+.tooltip p {
+	color: #c60bdd;
+	background-color: white;
+	border: gray 1px solid;
+	padding: 5px;
+	max-width: 200px;
+	font-size: 14px;
+	text-align: left;
+}
+
+/* Page 1, 2, 3 */ 
+
+.description {
+  	margin-top: 0px;
+	float: left;
+	width: 40%;
+	text-align: justify;
+}
+
+/* Page 4: What material? */
+ul#fly-tippers {
+	text-align: left;
+	line-height: 1.5;
+}
+
+ul#yes{
+	line-height: 1.5;
+	color: coral;
+	list-style: none;
+	font-size: 20px;
+}
+
+#bar-graph {
+	width: 58%;
+	height: 520px;
+	float: right;
+	margin-top: 0px;
+	margin-left: 20px;
+}
+
+/* Page 5: How Much? */
+#blue {
+	background-color: steelblue;
+	opacity: 0.8;
+	border-radius: 25px;
+	padding: 10px;
+	color: #f2f2f2;
+	font-weight: lighter;
+	text-align: center;
+}
+
+#scat {
+	margin-top: 0px;
+	float: right;
+	width: 55%;
+}
+ 
+/* Page 6 */
+.description6 {
+	margin-top: 10px;
+	float:left;
+	width: 45%;
+}
+
+/* Map */  
+.area {
+	stroke: grey;
+}
+
+.boundary {
+	fill: none;
+	stroke: grey;
+}
+
+li.key {
+	border-top-width: 15px;
+	border-top-style: solid;
+	font-size: .75em;
+	width: 10%;
+	padding-left: 0;
+	padding-right: 0; 
+	display: inline-block;
+}
+
+#legend {
+	width: 90%;
+}
+
+.hidden { 
+	display: none; 
+}
+
+/* Bar graph and scatterplot*/ 
+.axis path, .axis line {
+	fill: none;            
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.axis text {
+	font-family: sans-serif;
+	font-size: 11px;
+}
+		
+.bar:hover {
+	fill: #c60bdd;
+	/*fill: orangered;*/
+}	
+
+/* Bar graph tooltip*/
+.d3-tip {
+	line-height: 1;
+	padding: 12px;
+	background: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	border-radius: 2px;
+}
+
+/* To create a small triangle extender for the tooltip */
+.d3-tip:after {
+	box-sizing: border-box;
+	display: inline;
+	font-size: 10px;
+	width: 100%;
+	line-height: 1;
+	color: rgba(0, 0, 0, 0.7);
+	content: "\25BC"; /* it makes the triangle*/
+	position: absolute;
+	text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+	margin: -1px 0 0 0;
+	top: 100%;
+	left: 0;
+}
+
+form {
+	margin: auto;
+	text-align: center;
+}
+
+.margin-b {
+	margin-bottom: 20px;
+}
+
+/* Scatterplot */
+.dot {
+    stroke: #000;
+}
+
+.tooltip2 {
+	background-color: white;
+	border: gray 1px solid;
+	padding: 5px;
+    position: absolute;
+    max-width: 200px;
+    pointer-events: none;
+    font-size: 14px;
+    text-align: left;
+    color: #c60bdd;
+}
+
+/* Bar graph and scatterplot*/ 
+.axis path, .axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.axis text {
+	font-size: 11px;
+}
+
+#littlemen {
+	text-align: left;
+}
+
+.border {
+	border-radius: 25px;
+	border: solid 2px steelblue;
+	padding: 5px 20px 5px 20px;
+	font-weight: lighter;
+	box-shadow: 10px 10px 5px #D0D0D0;
+}
+
+.blue {
+	color: steelblue;
+}
+
+/* Toggle */
+.content {
+    margin: 0px;
+    width: 60%;
+    float: right;
+}
+
+.btn {
+    display: inline;
+    font-size: 14px;
+    padding: 14px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    background-color: #1696d2;
+    display: block;
+    line-height: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    float: right;
+    margin: 5px;
+}
+
+.selected {
+    background-color: #ccc;
+    border: black;
+}
+
+.chart {
+    margin: 0 auto;
+    margin-top: 0px;
+    position: relative;
+    width: 700px;
+    height: 80%;
+}
+
+.btn:hover {
+    background-color: #000;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: ' ';
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+.hide {
+    display: none;
+}
+.show {
+    display: block;
+}
+
+.font-size {
+	font-size: 20px;
+}
+
+form.right {
+	text-align: right;
+}
